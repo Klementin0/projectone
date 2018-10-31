@@ -1,5 +1,3 @@
 Project voor Hanzehogeschool Groningen
 
 Zonneschermen besturen doormiddel van een Arduino
-
-Mooi git
