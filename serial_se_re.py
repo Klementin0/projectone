@@ -37,3 +37,16 @@ class SerialPort:
                 self.isopen = False
             except:
                 print("Kan port niet sluiten, error: ", sys.exc_info()[0])
+
+    def Stuur(self,message):
+        if self.isopen:
+            try:x
+                newmessage = message.strip()
+                newmessage += '\r\n'
+                self.serialport.write(newmessage.encode('utf-8'))
+            except:
+                print("Error sending message: ", sys.exc_info()[0] )
+            else:
+                return True
+        else:
+            return False
