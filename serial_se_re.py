@@ -40,7 +40,7 @@ class SerialPort:
 
     def Stuur(self,message):
         if self.isopen:
-            try:x
+            try:
                 newmessage = message.strip()
                 newmessage += '\r\n'
                 self.serialport.write(newmessage.encode('utf-8'))
