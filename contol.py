@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLineEdit
 import serial_se_re
 serialPort = serial_se_re.SerialPort()
 
@@ -20,6 +20,9 @@ connect_button.clicked.connect(lambda: Verbinden())
 stuur_data_button = QPushButton('Stuur message')
 layout.addWidget(stuur_data_button)
 stuur_data_button.clicked.connect(lambda: SendDataCommand())
+
+tekst_veld = QLineEdit()
+layout.addWidget(tekst_veld)
 
 window.setLayout(layout)
 window.show()
