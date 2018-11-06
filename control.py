@@ -27,3 +27,6 @@ layout.addWidget(tekst_veld)
 window.setLayout(layout)
 window.show()
 app.exec_()
+
+
+#test in atom
