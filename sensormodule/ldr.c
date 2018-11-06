@@ -2,7 +2,7 @@
  * ldr.c
  * UART code source: homework Assembly & C week 4
  * ADC code source: https://sites.google.com/site/qeewiki/books/avr-guide/analog-input
- * This is the basic code to continuesly read values from the LDR04 sensor 
+ * This is the basic code to continuously read values from the LDR04 sensor 
  * and transmit this value as int value over a serial connection using UART.
  * Created: 6-11-2018 14:34:25
  *  Author: Kevin
@@ -83,4 +83,4 @@ int main() {
 		
 	}
 	return 0;
-}}
+}
