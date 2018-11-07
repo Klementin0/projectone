@@ -1,9 +1,23 @@
+import serial_se_re
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+#Maak nieuw Zonnescherm
+serialPort = serial_se_re.SerialPort()
+
+def SendDataCommand():
+    serialPort.Stuur("Basic Send")
+
+def Verbinden():
+    serialPort.Open("COM13",19200)
+
+def InsertText():
+    tekst_veld.insert("kek")
 
 class Ui_MainWindow(object):
 
     def setupUi(self, MainWindow):
+
 
         #main venster
         MainWindow.setObjectName("MainWindow")
@@ -25,7 +39,7 @@ class Ui_MainWindow(object):
 
         #button inrollen
         self.inrollen = QtWidgets.QPushButton(self.centralwidget)
-        self.inrollen.setGeometry(QtCore.QRect(250, 50, 100, 31))
+        self.inrollen.setGeometry(QtCore.QRect(250, 50, 100, 30))
         self.inrollen.setObjectName("inrollen")
         self.inrollen.clicked.connect(self.inrollen_action)
 
@@ -93,4 +107,3 @@ ui = Ui_MainWindow()
 ui.setupUi(MainWindow)
 MainWindow.show()
 sys.exit(app.exec_())
-
