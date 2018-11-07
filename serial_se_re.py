@@ -51,3 +51,13 @@ class SerialPort:
                 return True
         else:
             return False
+
+    def Lees(self):
+        if self.isopen:
+            try:
+                while(1):
+                    print(self.serialport.read())
+            except Exception:
+                print("error")
+        else:
+            return False
