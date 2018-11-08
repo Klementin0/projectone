@@ -6,6 +6,27 @@
 #include <avr/interrupt.h>
 #include <string.h>
 
+
+/*
+Created by: Youri van de Geer - 372724
+8/11/2018
+
+Accuracy: full CM
+
+PB0 = echo
+PB1 = trigger
+GRND = GRND
+V5 = VCC
+
+voor test -> PD4 - led - weerstand - ground
+
+BAUDRATE = 19200
+PORT = PORT (COM3 on my device)
+Display = uint8_t
+No parity - 8 Data bits - 1 stop bit
+
+
+*/
 #define UBBRVAL 51
 #define HIGH 0xff
 #define LOW 0x00
@@ -38,7 +59,7 @@ void transmit(uint8_t data)
 void SR04Signal(){
 		
 	
-	float distance = 0.00;
+	float distance = 0;
 	
 	//echoDone is een boolean die checkt of de echo klaar is
 	//Als de echo pas klaar is mag ermee worden gerekend
