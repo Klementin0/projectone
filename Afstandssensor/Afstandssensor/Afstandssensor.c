@@ -59,7 +59,7 @@ void transmit(uint8_t data)
 void SR04Signal(){
 		
 	
-	float distance = 0;
+	float distance = 0.00;
 	
 	//echoDone is een boolean die checkt of de echo klaar is
 	//Als de echo pas klaar is mag ermee worden gerekend
