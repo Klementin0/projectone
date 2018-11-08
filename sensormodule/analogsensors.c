@@ -18,7 +18,6 @@
 // output on USB = PD1 = board pin 1
 // datasheet p.190; F_OSC = 16 MHz & baud rate = 19.200
 #define UBBRVAL 51
-int ADCvalue;
 
 void uart_init() {
 	// set the baud rate
@@ -64,13 +63,19 @@ int ADCsingleREAD(uint8_t adctouse)
 
 int readTemp()
 {
+	int ADCvalue;
 	ADCvalue = ADCsingleREAD(0);
-	transmit(ADCvalue);
+    float temperatuur = 0.00;
+	temperatuur = ((ADCvalue * (5000.0/1024.0)) - 500.0) /10.0;
+	transmit(1);
+	transmit(temperatuur);
 }
 
 int readLDR()
 {
+	int ADCvalue;
 	ADCvalue = ADCsingleREAD(1);
+	transmit(2);	
 	transmit(ADCvalue);
 }
 
