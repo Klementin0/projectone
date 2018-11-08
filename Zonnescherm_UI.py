@@ -21,7 +21,7 @@ class Ui_MainWindow(object):
 
         #main venster
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(500, 100)
+        MainWindow.resize(500, 150)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
@@ -55,6 +55,18 @@ class Ui_MainWindow(object):
         self.meer_informatie.setObjectName("meer_informatie")
         self.meer_informatie.clicked.connect(self.meer_informatie_action)
 
+        #button verbinden
+        self.verbinden = QtWidgets.QPushButton(self.centralwidget)
+        self.verbinden.setGeometry(QtCore.QRect(350, 100, 100, 30))
+        self.verbinden.setObjectName("verzenden")
+        self.verbinden.clicked.connect(self.verbinden_action)
+
+
+        self.verbinding_verbreken = QtWidgets.QPushButton(self.centralwidget)
+        self.verbinding_verbreken.setGeometry(QtCore.QRect(200, 100, 150, 30))
+        self.verbinding_verbreken.setObjectName("verbinding verbreken")
+        self.verbinding_verbreken.clicked.connect(self.verbinding_verbreken_action)
+
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -87,6 +99,12 @@ class Ui_MainWindow(object):
     def meer_informatie_action(self):
         print("Meer informatie")
 
+    def verbinden_action(self):
+        print("verbinden")
+
+    def verbinding_verbreken_action(self):
+        print("verbinding verbreken")
+
     #namen definiëren
     def vertalen(self, MainWindow):
         _vertalen = QtCore.QCoreApplication.translate
@@ -97,7 +115,8 @@ class Ui_MainWindow(object):
         self.uitrollen.setText(_vertalen("MainWindow", "Uitrollen"))
         self.meer_informatie.setText(_vertalen("MainWindow", "Meer informatie"))
         self.actionVerversen.setText(_vertalen("MainWindow", "Verversen"))
-
+        self.verbinden.setText(_vertalen("MainWindow", "Verbinden"))
+        self.verbinding_verbreken.setText(_vertalen("MainWindow", "Verbinding verbreken"))
 
 
 
