@@ -1,6 +1,8 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLineEdit
 import serial_se_re
+import threading
+
 serialPort = serial_se_re.SerialPort()
 
 def SendDataCommand():
@@ -10,7 +12,11 @@ def Verbinden():
     serialPort.Open("COM13",19200)
 
 def InsertText():
-    tekst_veld.insert("kek")
+    print(serialPort.Lees())
+    #tekst_veld.insert(message)
+
+thread = threading.Thread(target=InsertText)
+thread.start()
 
 app = QApplication([])
 window = QWidget()
