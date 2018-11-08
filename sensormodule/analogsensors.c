@@ -2,7 +2,7 @@
  * ldr.c
  * UART code source: homework Assembly & C week 4
  * ADC code source: https://sites.google.com/site/qeewiki/books/avr-guide/analog-input
- * This is the basic code to continuously read values from the LDR04 sensor 
+ * This is the basic code to continuesly read values from the LDR04 sensor 
  * and transmit this value as int value over a serial connection using UART.
  * Created: 6-11-2018 14:34:25
  *  Author: Kevin
@@ -18,7 +18,7 @@
 // output on USB = PD1 = board pin 1
 // datasheet p.190; F_OSC = 16 MHz & baud rate = 19.200
 #define UBBRVAL 51
-volatile uint8_t ADCvalue;    // Global variable, set to volatile if used with ISR
+int ADCvalue;
 
 void uart_init() {
 	// set the baud rate
@@ -39,48 +39,50 @@ void transmit(uint8_t data)
 	// send the data
 	UDR0 = data;
 }
-//EINDE VOORBEELDCODE BLACKBOARD
-char receive(void) {
-	loop_until_bit_is_set(UCSR0A, RXC0); //wacht totdat RXC0 is set en enable transmitter&reciever
-	return UDR0; // return waarde van USART I/O Data Register
-}
 
-void sensorinit(void)
+int ADCsingleREAD(uint8_t adctouse)
 {
-	ADMUX = 0;                // use ADC0
+	int ADCval;
+
+	ADMUX = adctouse;         // use #1 ADC
 	ADMUX |= (1 << REFS0);    // use AVcc as the reference
-	ADMUX |= (1 << ADLAR);    // Right adjust for 8 bit resolution
-
-	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0); // 128 prescale for 16Mhz
-	ADCSRA |= (1 << ADATE);   // Set ADC Auto Trigger Enable
+	ADMUX &= ~(1 << ADLAR);   // clear for 10 bit resolution
 	
-	ADCSRB = 0;               // 0 for free running mode
-
+	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);    // 128 prescale for 8Mhz
 	ADCSRA |= (1 << ADEN);    // Enable the ADC
-	ADCSRA |= (1 << ADIE);    // Enable Interrupts
 
 	ADCSRA |= (1 << ADSC);    // Start the ADC conversion
 
-	sei();    // Thanks N, forgot this the first time =P
+	while(ADCSRA & (1 << ADSC));      // Thanks T, this line waits for the ADC to finish
+
+
+	ADCval = ADCL;
+		ADCval = (ADCH << 8) + ADCval;    // ADCH is read so ADC can be updated again
+
+	return ADCval;
 }
 
-ISR(ADC_vect)
+int readTemp()
 {
-	ADCvalue = ADCH;          // only need to read the high value for 8 bit
-	// REMEMBER: once ADCH is read the ADC will update
-	
-	// if you need the value of ADCH in multiple spots, read it into a register
-	// and use the register and not the ADCH
+	ADCvalue = ADCsingleREAD(0);
 	transmit(ADCvalue);
-	_delay_ms(1000);
+}
+
+int readLDR()
+{
+	ADCvalue = ADCsingleREAD(1);
+	transmit(ADCvalue);
 }
 
 int main() {
 	uart_init();//initialisatie uart
-	sensorinit();//initialisatie sensoren
 	_delay_ms(1000);//delay voor begin while loop
+	SCH_Init_T1();
+	SCH_Add_Task(readTemp,0,200);
+	SCH_Add_Task(readLDR,100,200);
+	SCH_Start();
 	while(1) {
-		
+		SCH_Dispatch_Tasks();
 	}
 	return 0;
 }
