@@ -5,11 +5,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 #Maak nieuw Zonnescherm
 serialPort = serial_se_re.SerialPort()
 
-def SendDataCommand():
-    serialPort.Stuur("Basic Send")
-
-def Verbinden():
-    serialPort.Open("COM13",19200)
 
 def InsertText():
     tekst_veld.insert("kek")
@@ -99,11 +94,15 @@ class Ui_MainWindow(object):
     def meer_informatie_action(self):
         print("Meer informatie")
 
+    # actie wanneer de knop verbinden_action wordt ingedrukt
     def verbinden_action(self):
-        print("verbinden")
+        #print("verbinden")
+        serialPort.Open("COM3", 19200)
 
+    # actie wanneer de knop verbinding_verbreken_action wordt ingedrukt
     def verbinding_verbreken_action(self):
-        print("verbinding verbreken")
+        #print("verbinding verbreken")
+        serialPort.Stuur("Basic Send")
 
     #namen definiëren
     def vertalen(self, MainWindow):
