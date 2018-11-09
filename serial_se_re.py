@@ -1,12 +1,14 @@
 import serial
 import sys
 import _thread
+import threading
 
 class SerialPort:
     def __init__(self):
-        self.comportName = "COM5"
+        self.comportName = "COM13"
         self.baud = 19200
         self.isopen = False
+        self.timeout = None
         self.serialport = serial.Serial()
 
 
@@ -56,8 +58,9 @@ class SerialPort:
         if self.isopen:
             try:
                 while(1):
-                    print(self.serialport.read())
+                    message = self.serialport.read()
+                    return(message)
             except Exception:
                 print("error")
         else:
-            return False
+            print("Cannot open serial port")
