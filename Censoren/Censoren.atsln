@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "SensorProject", "SensorProject\SensorProject.cproj", "{3209DC81-FA2A-4A3D-8ED6-E4BE09DA7691}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Censoren", "Censoren\Censoren.cproj", "{D8E82862-7B69-49C2-A460-FF0AC5CBBD79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|AVR = Release|AVR
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3209DC81-FA2A-4A3D-8ED6-E4BE09DA7691}.Debug|AVR.ActiveCfg = Debug|AVR
-		{3209DC81-FA2A-4A3D-8ED6-E4BE09DA7691}.Debug|AVR.Build.0 = Debug|AVR
-		{3209DC81-FA2A-4A3D-8ED6-E4BE09DA7691}.Release|AVR.ActiveCfg = Release|AVR
-		{3209DC81-FA2A-4A3D-8ED6-E4BE09DA7691}.Release|AVR.Build.0 = Release|AVR
+		{D8E82862-7B69-49C2-A460-FF0AC5CBBD79}.Debug|AVR.ActiveCfg = Debug|AVR
+		{D8E82862-7B69-49C2-A460-FF0AC5CBBD79}.Debug|AVR.Build.0 = Debug|AVR
+		{D8E82862-7B69-49C2-A460-FF0AC5CBBD79}.Release|AVR.ActiveCfg = Release|AVR
+		{D8E82862-7B69-49C2-A460-FF0AC5CBBD79}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

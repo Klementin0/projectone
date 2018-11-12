@@ -1,1 +1,0 @@
-Mapje voor sensorcode in C.

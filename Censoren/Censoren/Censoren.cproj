@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>6.0</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8</ToolchainName>
-    <ProjectGuid>{3209dc81-fa2a-4a3d-8ed6-e4be09da7691}</ProjectGuid>
+    <ProjectGuid>{d8e82862-7b69-49c2-a460-ff0ac5cbbd79}</ProjectGuid>
     <avrdevice>ATmega328P</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
@@ -12,15 +12,32 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>SensorProject</AssemblyName>
-    <Name>SensorProject</Name>
-    <RootNamespace>SensorProject</RootNamespace>
+    <AssemblyName>Censoren</AssemblyName>
+    <Name>Censoren</Name>
+    <RootNamespace>Censoren</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
     <OverrideVtorValue />
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfVersion>3.5.0</AsfVersion>
+    <avrtoolinterface />
+    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
+    <com_atmel_avrdbg_tool_simulator>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolName xmlns="">AVR Simulator</ToolName>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <KeepTimersRunning xmlns="">true</KeepTimersRunning>
+      <OverrideVtor xmlns="">false</OverrideVtor>
+      <OverrideVtorValue xmlns="">
+      </OverrideVtorValue>
+      <Channel xmlns="">
+        <host>127.0.0.1</host>
+        <port>51969</port>
+        <ssl>False</ssl>
+      </Channel>
+    </com_atmel_avrdbg_tool_simulator>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -67,19 +84,13 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Afstandssensor.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="AVR_TTC_scheduler.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="AVR_TTC_scheduler.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="ldr.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="SensorProject.c">
+    <Compile Include="Censoren.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

@@ -35,10 +35,8 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../Afstandssensor.c \
 ../AVR_TTC_scheduler.c \
-../ldr.c \
-../SensorProject.c
+../Censoren.c
 
 
 PREPROCESSING_SRCS += 
@@ -48,46 +46,34 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-Afstandssensor.o \
 AVR_TTC_scheduler.o \
-ldr.o \
-SensorProject.o
+Censoren.o
 
 
 OBJS_AS_ARGS +=  \
-Afstandssensor.o \
 AVR_TTC_scheduler.o \
-ldr.o \
-SensorProject.o
+Censoren.o
 
 
 C_DEPS +=  \
-Afstandssensor.d \
 AVR_TTC_scheduler.d \
-ldr.d \
-SensorProject.d
+Censoren.d
 
 
 C_DEPS_AS_ARGS +=  \
-Afstandssensor.d \
 AVR_TTC_scheduler.d \
-ldr.d \
-SensorProject.d
+Censoren.d
 
 
-OUTPUT_FILE_PATH +=SensorProject.elf
+OUTPUT_FILE_PATH +=Censoren.elf
 
-OUTPUT_FILE_PATH_AS_ARGS +=SensorProject.elf
+OUTPUT_FILE_PATH_AS_ARGS +=Censoren.elf
 
 ADDITIONAL_DEPENDENCIES:=
 
 OUTPUT_FILE_DEP:= ./makedep.mk
 
 # AVR32/GNU C Compiler
-
-
-
-
 
 
 
@@ -124,13 +110,13 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP)
 	@echo Building target: $@
 	@echo Invoking: AVR/GNU Linker : (AVR_8_bit_GNU_Toolchain_3.4.1_830) 4.6.2
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="SensorProject.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group  -mmcu=atmega328p  
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="Censoren.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group  -mmcu=atmega328p  
 	@echo Finished building target: $@
-	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature  "SensorProject.elf" "SensorProject.hex"
-	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "SensorProject.elf" "SensorProject.eep" || exit 0
-	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-objdump.exe" -h -S "SensorProject.elf" > "SensorProject.lss"
-	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature  "SensorProject.elf" "SensorProject.srec"
-	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-size.exe" "SensorProject.elf"
+	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature  "Censoren.elf" "Censoren.hex"
+	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "Censoren.elf" "Censoren.eep" || exit 0
+	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-objdump.exe" -h -S "Censoren.elf" > "Censoren.lss"
+	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature  "Censoren.elf" "Censoren.srec"
+	"C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.4.1.95\AVRToolchain\bin\avr-size.exe" "Censoren.elf"
 	
 
 
@@ -140,5 +126,5 @@ $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP)
 # Other Targets
 clean:
 	-$(RM) $(OBJS_AS_ARGS)$(C_DEPS_AS_ARGS) $(EXECUTABLES) 
-	rm -rf "SensorProject.elf" "SensorProject.a" "SensorProject.hex" "SensorProject.lss" "SensorProject.eep" "SensorProject.map" "SensorProject.srec"
+	rm -rf "Censoren.elf" "Censoren.a" "Censoren.hex" "Censoren.lss" "Censoren.eep" "Censoren.map" "Censoren.srec"
 	
