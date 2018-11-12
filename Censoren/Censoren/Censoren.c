@@ -1,5 +1,6 @@
 /*
 MISSEND: Setup ldr en temp - hiermee dus ook de check
+		ledcheck() doet het niet, recieve moet worden gefixt
 
 VOLGORDE BREADBOARD PLUSLIJN temp > licht > afstand
 Dit is omdat temp en licht zich anders gedragen met verschillende volt
