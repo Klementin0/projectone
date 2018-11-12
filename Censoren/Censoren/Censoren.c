@@ -74,7 +74,6 @@ void transmit(uint8_t data)
 	// send the data
 	UDR0 = data;
 }
-
 //AnalogRead
 int ADCsingleREAD(uint8_t adctouse)
 {
@@ -171,6 +170,27 @@ ISR (PCINT0_vect){
 		echoDone = 1;
 
 	}
+}
+int roodLed = 0;
+int geelLed = 0;
+int groenLed = 0;
+/*
+void ledCheck(){
+	if(recieve & 0x01 = 1){groenLed = 1;}
+	if(recieve & 0x02 = 2){geelLed = 1;}
+	if(recieve & 0x04 = 4){roodLed = 1;}
+	if(recieve & 0xff = 0){roodLed = 0; geelLed = 0; groenLed = 0;}
+	ledTrigger();
+}
+*/
+void ledTrigger()
+{
+	//mogelijk input binnen de argumenten voor ledTrigger
+	//portd max = 0b00000111
+	//portd min = 0x00
+	int leds = roodLed<<2 + geelLed<<1 + groenLed<<0;
+	PORTD = leds;
+	
 }
 
 int main() {
