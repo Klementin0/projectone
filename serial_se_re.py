@@ -67,7 +67,7 @@ class SerialPort(threading.Thread):
                 while(1):
                     message = ord(self.serialport.read())
                     time.sleep(0.01)
-                    print(message)
+                    self.lis.append(message)
             except Exception:
                 print("error")
         else:
@@ -78,3 +78,9 @@ class SerialPort(threading.Thread):
             threading.Thread(target=self._Lees).start()
         else:
             print("Cannot start thread for _Lees")
+
+    def Return_lis(self):
+        if self.isopen:
+            return self.lis
+        else:
+            print("cant return list")
