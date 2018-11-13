@@ -67,40 +67,14 @@ class SerialPort(threading.Thread):
                 while(1):
                     message = ord(self.serialport.read())
                     time.sleep(0.01)
-<<<<<<< HEAD
                     print(message)
-=======
-                    return message
->>>>>>> f8eac772772af5f6b955d634ce5d45b661ddef1f
             except Exception:
                 print("error")
         else:
             print("Cannot open serial port")
 
-<<<<<<< HEAD
     def Lees(self):
         if self.isopen:
             threading.Thread(target=self._Lees).start()
-=======
-    def Add_lis(self,message):
-        if self.isopen:
-            try:
-                self.lis = lis.append(message)
-            except:
-                print("Nog geen lis: ", sys.exc_info()[0] )
-            else:
-                return True
-        else:
-            return False
-
-    def Return_lis(self):
-        if self.isopen:
-            try:
-                return self.lis
-            except:
-                print("Nog geen lis: ", sys.exc_info()[0] )
-            else:
-                return True
->>>>>>> f8eac772772af5f6b955d634ce5d45b661ddef1f
         else:
             print("Cannot start thread for _Lees")
