@@ -5,18 +5,18 @@ import threading
 from threading import Thread
 import time
 
-class SerialPort(Thread):
-    
-    def __init__(self, val):
-        self.comportName = "COM5"
+class SerialPort(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.comportName = "COM3"
         self.baud = 19200
         self.isopen = False
         self.timeout = None
+        self.lis = []
         self.serialport = serial.Serial()
 
-        Thread.__init__(self)
-        self.val = val
-
+        #Thread.__init__(self)
+        #self.val = val
 
     def __del__(self):
         try:
@@ -61,14 +61,26 @@ class SerialPort(Thread):
         else:
             return False
 
-    def Lees(self):
+    def _Lees(self):
         if self.isopen:
             try:
                 while(1):
-                    message = self.serialport.read()
+                    message = ord(self.serialport.read())
                     time.sleep(0.01)
-                    print(message)
+                    self.lis.append(message)
             except Exception:
                 print("error")
         else:
             print("Cannot open serial port")
+
+    def Lees(self):
+        if self.isopen:
+            threading.Thread(target=self._Lees).start()
+        else:
+            print("Cannot start thread for _Lees")
+
+    def Return_lis(self):
+        if self.isopen:
+            return self.lis
+        else:
+            print("cant return list")
