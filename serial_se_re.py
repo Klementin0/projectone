@@ -12,7 +12,7 @@ class SerialPort():
         self.baud = 19200
         self.isopen = False
         self.timeout = None
-        self.lis = lis[]
+        self.lis = []
         self.serialport = serial.Serial()
 
         #Thread.__init__(self)
