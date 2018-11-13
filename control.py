@@ -30,6 +30,14 @@ def GemiddeldeTemp():
     avg = sum / len(temp)
     return(avg)
 
+def LichtDonker():
+    sum = 0
+    for i in lis:
+        sum += i
+
+    avg = sum / 60
+    return(avg)
+
 app = QApplication([])
 window = QWidget()
 layout = QVBoxLayout()
@@ -52,7 +60,7 @@ instert_text = QPushButton('add')
 layout.addWidget(instert_text)
 instert_text.clicked.connect(lambda: InsertText())
 
-tekst_veld = QLineEdit()
+#tekst_veld = QLineEdit()
 layout.addWidget(tekst_veld)
 
 
