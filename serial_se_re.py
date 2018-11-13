@@ -5,17 +5,17 @@ import threading
 from threading import Thread
 import time
 
-class SerialPort(Thread):
+class SerialPort():
     
-    def __init__(self, val):
-        self.comportName = "COM5"
+    def __init__(self):
+        self.comportName = "COM3"
         self.baud = 19200
         self.isopen = False
         self.timeout = None
         self.serialport = serial.Serial()
 
-        Thread.__init__(self)
-        self.val = val
+        #Thread.__init__(self)
+        #self.val = val
 
 
     def __del__(self):
@@ -65,9 +65,10 @@ class SerialPort(Thread):
         if self.isopen:
             try:
                 while(1):
-                    message = self.serialport.read()
+                    message = ord(self.serialport.read())
                     time.sleep(0.01)
-                    print(message)
+                    #print(message)
+                    return message
             except Exception:
                 print("error")
         else:

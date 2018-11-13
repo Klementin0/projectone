@@ -2,6 +2,7 @@ import serial_se_re
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 #Maak nieuw Zonnescherm
 serialPort = serial_se_re.SerialPort()
 
@@ -88,11 +89,13 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop uitrollen_action wordt ingedrukt
     def uitrollen_action(self):
-        print("Uitrullen")
+        print("Uitrollen")
+        serialPort.Stuur("Basic Send")
 
     # actie wanneer de knop meer_informatie_action wordt ingedrukt
     def meer_informatie_action(self):
         print("Meer informatie")
+        import meer_informatie
 
     # actie wanneer de knop verbinden_action wordt ingedrukt
     def verbinden_action(self):
@@ -102,7 +105,8 @@ class Ui_MainWindow(object):
     # actie wanneer de knop verbinding_verbreken_action wordt ingedrukt
     def verbinding_verbreken_action(self):
         #print("verbinding verbreken")
-        serialPort.Stuur("Basic Send")
+        #serialPort.Stuur("Basic Send")
+        serialPort.Sluiten()
 
     #namen definiëren
     def vertalen(self, MainWindow):
