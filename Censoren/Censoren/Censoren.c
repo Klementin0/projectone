@@ -17,9 +17,9 @@ This is the basic code to continuously read values from the LDR04 sensor
 and transmit this value as int value over a serial connection using UART.
 
 Temp:
-Pin1: 5V
-Pin2: analog in A0
-Pin3: Gnd
+VCC: 5V
+Pin: analog in A0
+GND: Gnd
 (voor pinschema zie https://www.analog.com/media/en/technical-documentation/data-sheets/TMP35_36_37.pdf)
 
 LDR04:
