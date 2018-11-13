@@ -30,8 +30,6 @@ def GemiddeldeTemp():
     avg = sum / len(temp)
     return(avg)
 
-test
-
 app = QApplication([])
 window = QWidget()
 layout = QVBoxLayout()
