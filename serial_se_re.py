@@ -2,16 +2,20 @@ import serial
 import sys
 import _thread
 import threading
+from threading import Thread
 import time
 
-class SerialPort:
-    def __init__(self):
+class SerialPort(Thread):
+    
+    def __init__(self, val):
         self.comportName = "COM5"
         self.baud = 19200
         self.isopen = False
         self.timeout = None
         self.serialport = serial.Serial()
-        temp = {}
+
+        Thread.__init__(self)
+        self.val = val
 
 
     def __del__(self):
@@ -63,17 +67,7 @@ class SerialPort:
                 while(1):
                     message = self.serialport.read()
                     time.sleep(0.01)
-
-                    #split and check
-                    #key, value = message.split('b')
-                    #pair = {key:value}
-                    #if key == 1:
-                    #    temp.update(pair)
-                    #if key == 2:
-                    #    print(pair)
-                    #if key == 3:
-                    #    print(pair)
-                    return(message)
+                    print(message)
             except Exception:
                 print("error")
         else:
