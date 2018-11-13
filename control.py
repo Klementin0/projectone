@@ -30,14 +30,7 @@ def GemiddeldeTemp():
     avg = sum / len(temp)
     return(avg)
 
-<<<<<<< HEAD
-=======
-def LedsAan():
-    serialPort.Stuur("LedAan")
-
-thread = threading.Thread(target=InsertText)
-thread.start()
->>>>>>> 1dd23a954d92b014c1ee518f4923478b3f470c27
+test
 
 app = QApplication([])
 window = QWidget()
