@@ -15,6 +15,16 @@ def InsertText():
     print(serialPort.Lees())
     #tekst_veld.insert(message)
 
+
+def GemiddeldeTemp():
+    temp = [20, 21, 20, 19, 20, 21]
+    sum = 0
+    for i in temp:
+        sum += i
+
+    avg = sum / len(temp)
+    return(avg)
+
 thread = threading.Thread(target=InsertText)
 thread.start()
 
