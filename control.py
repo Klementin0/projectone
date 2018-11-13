@@ -25,6 +25,9 @@ def GemiddeldeTemp():
     avg = sum / len(temp)
     return(avg)
 
+def LedsAan():
+    serialPort.Stuur("LedAan")
+
 thread = threading.Thread(target=InsertText)
 thread.start()
 
