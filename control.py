@@ -5,7 +5,6 @@ import threading
 from time import sleep
 
 serialPort = serial_se_re.SerialPort()
-lis = []
 
 def SendDataCommand():
     serialPort.Stuur("Basic Send")
@@ -25,7 +24,6 @@ window = QWidget()
 layout = QVBoxLayout()
 window.setWindowTitle('Project One: Zonnescherm Bedieningseenheid')
 
-
 connect_button = QPushButton('Connect')
 layout.addWidget(connect_button)
 connect_button.clicked.connect(lambda: Verbinden())
@@ -44,8 +42,6 @@ instert_text.clicked.connect(lambda: InsertText())
 
 tekst_veld = QLineEdit()
 layout.addWidget(tekst_veld)
-
-
 
 window.setLayout(layout)
 window.show()
