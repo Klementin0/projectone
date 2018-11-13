@@ -156,7 +156,10 @@ void SR04Signal(){
 	distance = 17013.0*distance;
 
 	//verzenden naar serial
-	transmit(distance);
+	if(distance <= 4){transmit(4);}
+	else if(distance > 160){transmit(161);}
+	else{transmit(distance);}
+	
 }
 
 //overflow interrupt op timer 0
