@@ -2,16 +2,14 @@ import serial
 import sys
 import _thread
 import threading
-import time
 
 class SerialPort:
     def __init__(self):
-        self.comportName = "COM5"
+        self.comportName = "COM13"
         self.baud = 19200
         self.isopen = False
         self.timeout = None
         self.serialport = serial.Serial()
-        temp = {}
 
 
     def __del__(self):
@@ -42,7 +40,6 @@ class SerialPort:
             except:
                 print("Kan port niet sluiten, error: ", sys.exc_info()[0])
 
-
     def Stuur(self,message):
         if self.isopen:
             try:
@@ -62,17 +59,6 @@ class SerialPort:
             try:
                 while(1):
                     message = self.serialport.read()
-                    time.sleep(0.01)
-
-                    #split and check
-                    #key, value = message.split('b')
-                    #pair = {key:value}
-                    #if key == 1:
-                    #    temp.update(pair)
-                    #if key == 2:
-                    #    print(pair)
-                    #if key == 3:
-                    #    print(pair)
                     return(message)
             except Exception:
                 print("error")

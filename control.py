@@ -9,8 +9,7 @@ def SendDataCommand():
     serialPort.Stuur("Basic Send")
 
 def Verbinden():
-    serialPort.Open("COM5",19200)
-    print(serialPort.Lees())
+    serialPort.Open("COM13",19200)
 
 def InsertText():
     print(serialPort.Lees())
@@ -26,6 +25,11 @@ def GemiddeldeTemp():
     avg = sum / len(temp)
     return(avg)
 
+def LedsAan():
+    serialPort.Stuur("LedAan")
+
+thread = threading.Thread(target=InsertText)
+thread.start()
 
 app = QApplication([])
 window = QWidget()

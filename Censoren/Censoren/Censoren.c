@@ -183,6 +183,7 @@ ISR (PCINT0_vect){
 
 	}
 }
+
 int roodLed = 0;
 int geelLed = 0;
 int groenLed = 0;
@@ -219,9 +220,9 @@ int main() {
 	
 	//scheduler
 	SCH_Init_T1();
-	SCH_Add_Task(readTemp,0,300);
-	SCH_Add_Task(readLDR,100,300);
-	SCH_Add_Task(SR04Signal,200,300);
+	//SCH_Add_Task(readTemp,0,300);
+	//SCH_Add_Task(readLDR,100,300);
+	SCH_Add_Task(SR04Signal,0,50);
 	SCH_Start();
 	
 	//run scheduler
