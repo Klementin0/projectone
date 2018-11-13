@@ -15,6 +15,17 @@ UART code source: homework Assembly & C week 4 (partly blackboard)
 ADC code source: https://sites.google.com/site/qeewiki/books/avr-guide/analog-input
 This is the basic code to continuously read values from the LDR04 sensor 
 and transmit this value as int value over a serial connection using UART.
+
+Temp:
+Pin1: 5V
+Pin2: analog in A0
+Pin3: Gnd
+(voor pinschema zie https://www.analog.com/media/en/technical-documentation/data-sheets/TMP35_36_37.pdf)
+
+LDR04:
+1 zijde van de LDR04 verbinden met 5V. De andere zijde met zowel analog in A1 en via een 10kOhm weerstand met de Gnd
+(parallel zodat er een spanningsdeler gecreeerd wordt). 
+
 Created: 6-11-2018 14:34:25
 Author: Kevin
 
@@ -100,20 +111,20 @@ int ADCsingleREAD(uint8_t adctouse)
 //Temp sensor
 int readTemp()
 {
-	int ADCvalue;
-	ADCvalue = ADCsingleREAD(0);
-    float temperatuur = 0.00;
-	temperatuur = ((ADCvalue * (5000.0/1024.0)) - 500.0) /10.0;
+	int ADCvalue;	//int variabele ADCValue aanmaken
+	ADCvalue = ADCsingleREAD(0);	//Lees de ADC uit voor pin 0 en sla deze op in ADCValue
+    float temperatuur = 0.00;	//Float variabele aanmaken voor het berekenen van- en opslaan van temperatuur
+	temperatuur = ((ADCvalue * (5000.0/1024.0)) - 500.0) /10.0;	//Temperatuur berekenen uit ADCValue
 	transmit(1);
-	transmit(temperatuur);
+	transmit(temperatuur);	//Verstuur de temperatuur via seriele verbinding.
 }
 //lichtsensor
 int readLDR()
 {
-	int ADCvalue;
-	ADCvalue = ADCsingleREAD(1);
+	int ADCvalue;	//int variabele ADCValue aanmaken
+	ADCvalue = ADCsingleREAD(1);	//Lees de ADC uit voor pin 1 en sla deze op in ADCValue
 	transmit(2);	
-	transmit(ADCvalue);
+	transmit(ADCvalue);	//Verstuur de ADCValue via seriele verbinding. N.B.: Hier moet wellicht nog een berekening om juiste waarden te versturen???
 }
 
 //zend sr04 signaal en reken hiermee
