@@ -85,7 +85,7 @@ class SerialPort():
         else:
             return False
 
-    def Return_lis(self,message):
+    def Return_lis(self):
         if self.isopen:
             try:
                 return lis
