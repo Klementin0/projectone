@@ -16,10 +16,9 @@ def Verbinden():
 
 def InsertText():
     serialPort.Sluiten()
-    print("test")
 
 def printlist():
-    print(lis)
+    print(serialPort.Return_lis())
 
 app = QApplication([])
 window = QWidget()
