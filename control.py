@@ -11,24 +11,15 @@ def SendDataCommand():
     serialPort.Stuur("Basic Send")
 
 def Verbinden():
-    serialPort.Open("COM3",19200)
+    serialPort.Open("COM13",19200)
+    serialPort.Lees()
 
 def InsertText():
-    lis.append(serialPort.Lees())
-    print(serialPort.Lees())
-    #tekst_veld.insert(message)
+    serialPort.Sluiten()
+    print("test")
 
 def printlist():
     print(lis)
-
-def GemiddeldeTemp():
-    temp = [20, 21, 20, 19, 20, 21]
-    sum = 0
-    for i in temp:
-        sum += i
-
-    avg = sum / len(temp)
-    return(avg)
 
 app = QApplication([])
 window = QWidget()
