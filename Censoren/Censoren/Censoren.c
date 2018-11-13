@@ -13,7 +13,7 @@ voor deze opzet. Het maken en meten van de afstandssignalen hebben hier geen las
 ldr & temp36
 UART code source: homework Assembly & C week 4 (partly blackboard)
 ADC code source: https://sites.google.com/site/qeewiki/books/avr-guide/analog-input
-This is the basic code to continuously read values from the LDR04 sensor 
+This is the basic code to continuously read values from the LDR04 sensor
 and transmit this value as int value over a serial connection using UART.
 
 Temp:
@@ -24,7 +24,7 @@ GND: Gnd
 
 LDR04:
 1 zijde van de LDR04 verbinden met 5V. De andere zijde met zowel analog in A1 en via een 10kOhm weerstand met de Gnd
-(parallel zodat er een spanningsdeler gecreeerd wordt). 
+(parallel zodat er een spanningsdeler gecreeerd wordt).
 
 Created: 6-11-2018 14:34:25
 Author: Kevin
@@ -94,7 +94,7 @@ int ADCsingleREAD(uint8_t adctouse)
 	ADMUX = adctouse;         // use #1 ADC
 	ADMUX |= (1 << REFS0);    // use AVcc as the reference
 	ADMUX &= ~(1 << ADLAR);   // clear for 10 bit resolution
-	
+
 	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);    // 128 prescale for 8Mhz
 	ADCSRA |= (1 << ADEN);    // Enable the ADC
 
@@ -123,38 +123,38 @@ int readLDR()
 {
 	int ADCvalue;	//int variabele ADCValue aanmaken
 	ADCvalue = ADCsingleREAD(1);	//Lees de ADC uit voor pin 1 en sla deze op in ADCValue
-	transmit(2);	
+	transmit(2);
 	transmit(ADCvalue);	//Verstuur de ADCValue via seriele verbinding. N.B.: Hier moet wellicht nog een berekening om juiste waarden te versturen???
 }
 
 //zend sr04 signaal en reken hiermee
 void SR04Signal(){
-	
-	
+
+
 	float distance = 0.00;
-	
+
 	//echoDone is een boolean die checkt of de echo klaar is
 	//Als de echo pas klaar is mag ermee worden gerekend
 	echoDone = 0;
-	
+
 	//Timer0 counter wordt gereset
 	countTimer0 = 0;
-	
-	
+
+
 	//pulse sturen naar de trigger
 	PORTB = 0x00;
 	_delay_ms(2);
 	PORTB = 0xff;
 	_delay_us(10);
 	PORTB = 0x00;
-	
+
 	//check of echo weer low is
 	while (!echoDone);
-	
+
 	//berekening afstand
 	distance = countTimer0/16E6;
 	distance = 17013.0*distance;
-	
+
 	//verzenden naar serial
 	transmit(distance);
 }
@@ -203,32 +203,32 @@ void ledTrigger()
 	//portd min = 0x00
 	int leds = roodLed<<2 + geelLed<<1 + groenLed<<0;
 	PORTD = leds;
-	
+
 }
 
 int main() {
-	
+
 	//Poort init
 	DDRB = 0xfe;
 	DDRD = 0xff;
-		
+
 	//PCINT0 init
 	PCICR |= (1 << PCIE0);
 	PCMSK0 |= (1<< PCINT0);
-	
+
 	uart_init();//init serialisering
-	
+
 	//scheduler
 	SCH_Init_T1();
 	//SCH_Add_Task(readTemp,0,300);
 	//SCH_Add_Task(readLDR,100,300);
 	SCH_Add_Task(SR04Signal,0,50);
 	SCH_Start();
-	
+
 	//run scheduler
 	while(1) {
 		SCH_Dispatch_Tasks();
 	}
-	
+
 	return 0;
 }
