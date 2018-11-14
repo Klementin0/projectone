@@ -52,7 +52,6 @@ class SerialPort(threading.Thread):
             try:
                 # Ensure that the end of the message has both \r and \n, not just one or the other
                 newmessage = message.strip()
-                newmessage += '\r\n'
                 self.serialport.write(newmessage.encode('utf-8'))
             except:
                 print("Error sending message: ", sys.exc_info()[0] )
