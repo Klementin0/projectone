@@ -113,21 +113,25 @@ int message_incoming(void)
 	}
 }
 
-void input_handler(){
-	if(message_incoming()){
+void input_handler()
+{
+	if(message_incoming())
+	{
 		input = receive();
 		//Automodus veranderen
 		if (input = 49){
-			if(mode = 0){
+			if(mode == 0)
+			{
 				mode = 1;
 				PORTD |= 0b00100000;
 			}
-			if (mode = 1)
+			if (mode == 1)
 			{
 				mode = 0;
 				PORTD &= 0b00011100;
 			}
 		}
+
 		//afstand instellen
 		if (input = 50)
 		{
