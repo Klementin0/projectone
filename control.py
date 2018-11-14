@@ -22,7 +22,7 @@ def printlist():
 
 def AfstandPull():
     lis = serialPort.Return_lis()
-    AfstandList = lis[::3]
+    AfstandList = lis[2::3]
     LaatsteAfstand = lis[len(lis)-1]
     if(LaatsteAfstand == 4):
         print("Ingerolt")
