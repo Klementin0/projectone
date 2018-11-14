@@ -132,14 +132,33 @@ void input_handler(){
 		//afstand instellen
 		if (input = 50)
 		{
-			minAfstand;
-			maxAfstand;
+			if(maxAfstand < 156)
+			{
+				maxAfstand += 5;
+			}			
 		}
-		//min temperatuur instellen
 		if (input = 51)
 		{
-			minTemp;
+			if(maxAfstand > 136){
+				maxAfstand -= 5;
+			}				
+					
 		}
+		if (input = 52)
+		{	
+			if (minAfstand < 36)
+			{
+			minAfstand += 5;
+			}
+						
+		}		
+		if (input = 53)
+		{
+			if (minAfstand > 9)
+			{
+			minAfstand -= 5;
+			}			
+		}		
 		
 	}
 
