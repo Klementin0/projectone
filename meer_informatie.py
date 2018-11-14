@@ -6,16 +6,17 @@ import plotly.graph_objs as go
 def maak_grafiek(temp,licht,afstand):
 
     xass_temp = []
+    tijd = 60
     for i in range(len(temp)):
-        xass.append(i * 3)
+        xass_temp.append(i * tijd)
 
     xass_licht = []
     for i in range(len(licht)):
-        xass.append(i * 3)
+        xass_licht.append(i * tijd)
 
     xass_afstand = []
     for i in range(len(afstand)):
-        xass.append(i * 3)
+        xass_afstand.append(i * tijd)
 
     temperatuur = go.Scatter(
         x=xass_temp,
@@ -42,7 +43,7 @@ def maak_grafiek(temp,licht,afstand):
 
     fig['layout'].update(height=600, width=600, title='Gegevens zonnescherm:')
 
-    ply.plot(fig, filename='multi.html')
+    ply.plot(fig, filename='grafiek.html')
 
 
 
