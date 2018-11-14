@@ -5,36 +5,60 @@ import threading
 from time import sleep
 
 serialPort = serial_se_re.SerialPort()
-lis = []
 
 def SendDataCommand():
     serialPort.Stuur("Basic Send")
 
 def Verbinden():
     serialPort.Open("COM3",19200)
+    serialPort.Lees()
 
 def InsertText():
-    lis.append(serialPort.Lees())
-    print(serialPort.Lees())
-    #tekst_veld.insert(message)
+    serialPort.Sluiten()
 
 def printlist():
-    print(lis)
+    print(serialPort.Return_lis())
 
-def GemiddeldeTemp():
-    temp = [20, 21, 20, 19, 20, 21]
+
+def AfstandPull():
+    lis = serialPort.Return_lis()
+    AfstandList = lis[2::3]
+    LaatsteAfstand = lis[len(lis)-1]
+    if(LaatsteAfstand == 4):
+        print("Ingerolt")
+        #Functie voor groen licht aan, geel licht uit
+    elif(LaatsteAfstand == 170):
+        print("Uitgerold")
+        #Functie voor groen licht(eventueel een ander groen licht) aan, geel licht uit
+    else:
+        print("Aan het rollen")
+        #functie voor groene lichten uit, geel licht aan
+
+def LichtPull():
+    lis = serialPort.Return_lis()
+    Lichtlis = lis[1::3]
+    #kevins check op 3 minuten licht of niet
+    #check of variabele licht aan of uit is voor 3 minuten
+    Licht = 0
+    if(Licht == 0):
+        print("Het is donker")
+    elif(Licht == 1):
+        print("Het is licht")
+    else:
+        print("Ik kijk niet meer naar het licht")
+
+def LichtDonker():
     sum = 0
-    for i in temp:
+    for i in lis:
         sum += i
 
-    avg = sum / len(temp)
+    avg = sum / 60
     return(avg)
 
 app = QApplication([])
 window = QWidget()
 layout = QVBoxLayout()
 window.setWindowTitle('Project One: Zonnescherm Bedieningseenheid')
-
 
 connect_button = QPushButton('Connect')
 layout.addWidget(connect_button)
@@ -52,10 +76,8 @@ instert_text = QPushButton('add')
 layout.addWidget(instert_text)
 instert_text.clicked.connect(lambda: InsertText())
 
-tekst_veld = QLineEdit()
-layout.addWidget(tekst_veld)
-
-
+#tekst_veld = QLineEdit()
+#layout.addWidget(tekst_veld)
 
 window.setLayout(layout)
 window.show()
