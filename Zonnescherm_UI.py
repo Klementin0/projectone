@@ -110,9 +110,9 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop meer_informatie_action wordt ingedrukt
     def meer_informatie_action(self):
-        temp = [20, 25, 21, 26]
-        licht = [0, 1, 1, 1]
-        afstand = [155,120,23]
+        temp = serialPort.Return_temp()
+        licht = serialPort.Return_licht()
+        afstand = serialPort.Return_afstand()
         if not afstand:
             print("Opflikkeren, ie krijgt geen grafiek")
         else:
