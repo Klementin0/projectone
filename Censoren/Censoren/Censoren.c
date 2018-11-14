@@ -65,7 +65,8 @@ volatile char echoDone = 0;
 uint32_t countTimer0 = 0;
 float avgtemp = 0.0;
 uint8_t light = 0;
-float currentdistance;
+uint8_t currentdistance;
+uint8_t mode = 1;
 
 char shit_fuck;
 
@@ -202,7 +203,7 @@ void SR04Signal(){
 	//verzenden naar serial
 	if(distance <= 6){currentdistance = 5;}
 	else if(distance > 160){currentdistance = 161;}
-	else{currentdistance = distance;}
+	else{currentdistance = round(distance);}
 
 }
 
@@ -214,6 +215,34 @@ void transmitData()
 	_delay_ms(1);
 	transmit(currentdistance);
 	_delay_ms(1);
+}
+
+void autoMode()
+{
+	if (mode == 1)
+	{
+		if (currentdistance == 5)
+		{
+			if (light == 1)
+			{
+				if (avgtemp >= 10.0)
+				{
+					rollOut();
+				}
+			}
+		}
+		else if (currentdistance == 161)
+		{
+			if (light == 0)
+			{
+				rollIn();
+			}
+			else if (avgtemp < 10.0)
+			{
+				rollIn();
+			}
+		}
+	}
 }
 
 void rollOut()
@@ -232,7 +261,7 @@ void rollIn()
 	uint8_t status = PORTD;
 	if (status &= 0b00010000)
 	{
-		PORTD = PORTD>>1;
+		PORTD = PORTD>>1       ;
 		_delay_ms(3000);
 		PORTD = PORTD>>1;
 	}
@@ -282,7 +311,8 @@ int main() {
 	SCH_Add_Task(readLDR,0,3000);
 	SCH_Add_Task(SR04Signal,0,500);
 	SCH_Add_Task(transmitData,100,100);
-	SCH_Add_Task(input_handler,0,100);
+	//SCH_Add_Task(input_handler,0,100);
+	SCH_Add_Task(autoMode,200,1000);
 	
 	SCH_Start();
 

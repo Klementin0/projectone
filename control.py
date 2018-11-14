@@ -9,7 +9,7 @@ def SendDataCommand():
     serialPort.Stuur("2")
 
 def Verbinden():
-    serialPort.Open("COM3",19200)
+    serialPort.Open("COM4",19200)
     serialPort.Lees()
 
 def InsertText():
