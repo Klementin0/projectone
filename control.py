@@ -5,7 +5,6 @@ import threading
 from time import sleep
 
 serialPort = serial_se_re.SerialPort()
-lis = []
 
 def SendDataCommand():
     serialPort.Stuur("Basic Send")
@@ -20,6 +19,7 @@ def InsertText():
 def printlist():
     print(serialPort.Return_lis())
 
+<<<<<<< HEAD
 def AfstandPull():
     lis = serialPort.Return_lis()
     AfstandList = lis[::3]
@@ -47,6 +47,15 @@ def LichtPull():
     else:
         print("Ik kijk niet meer naar het licht")
         
+=======
+def LichtDonker():
+    sum = 0
+    for i in lis:
+        sum += i
+
+    avg = sum / 60
+    return(avg)
+>>>>>>> 9a5bd7d46b86144e605df71b437e5f4ddbf569ab
 
 app = QApplication([])
 window = QWidget()
@@ -69,10 +78,8 @@ instert_text = QPushButton('add')
 layout.addWidget(instert_text)
 instert_text.clicked.connect(lambda: InsertText())
 
-tekst_veld = QLineEdit()
+#tekst_veld = QLineEdit()
 layout.addWidget(tekst_veld)
-
-
 
 window.setLayout(layout)
 window.show()
