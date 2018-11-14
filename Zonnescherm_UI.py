@@ -62,9 +62,9 @@ class Ui_MainWindow(object):
         self.verbinding_verbreken.setObjectName("verbinding verbreken")
         self.verbinding_verbreken.clicked.connect(self.verbinding_verbreken_action)
 
-        #verbinding verbreken
+        #automatisch manual
         self.automatisch_manual = QtWidgets.QPushButton(self.centralwidget)
-        self.automatisch_manual.setGeometry(QtCore.QRect(200, 100, 150, 30))
+        self.automatisch_manual.setGeometry(QtCore.QRect(135, 10, 100, 30))
         self.automatisch_manual.setObjectName("automatisch_manual")
         self.automatisch_manual.clicked.connect(self.automatisch_manual_action)
 
