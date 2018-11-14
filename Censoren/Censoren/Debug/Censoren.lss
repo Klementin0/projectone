@@ -925,24 +925,21 @@ int message_incoming(void)
 
 000004d2 <input_handler>:
 
-void input_handler()
-{
-	if(message_incoming())
+void input_handler(){
+	if(message_incoming()){
  4d2:	0e 94 5e 02 	call	0x4bc	; 0x4bc <message_incoming>
  4d6:	00 97       	sbiw	r24, 0x00	; 0
  4d8:	c9 f0       	breq	.+50     	; 0x50c <input_handler+0x3a>
-	{
 		input = receive();
  4da:	0e 94 56 02 	call	0x4ac	; 0x4ac <receive>
 		//Automodus veranderen
 		if (input = 49){
  4de:	81 e3       	ldi	r24, 0x31	; 49
  4e0:	80 93 4f 01 	sts	0x014F, r24
-			if(mode == 0)
+			if(mode == 0){
  4e4:	80 91 04 01 	lds	r24, 0x0104
  4e8:	88 23       	and	r24, r24
  4ea:	21 f4       	brne	.+8      	; 0x4f4 <input_handler+0x22>
-			{
 				mode = 1;
  4ec:	81 e0       	ldi	r24, 0x01	; 1
  4ee:	80 93 04 01 	sts	0x0104, r24
