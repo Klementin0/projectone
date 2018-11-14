@@ -67,6 +67,8 @@ float avgtemp = 0.0;
 uint8_t light = 0;
 float currentdistance;
 
+char shit_fuck;
+
 //serialisering
 void uart_init() {
 	// set the baud rate
@@ -87,6 +89,29 @@ void transmit(uint8_t data)
 	loop_until_bit_is_set(UCSR0A, UDRE0);
 	// send the data
 	UDR0 = data;
+}
+
+unsigned char receive(void)
+{
+	/* Wait for data to be received */
+	while ( !(UCSR0A & (1<<RXC0)) );
+	/* Get and return received data from buffer */
+	return UDR0;
+}
+
+int message_incoming(void)
+{
+	if((UCSR0A & (1<<RXC0))){
+		return 1;
+	} else {
+		return 0;
+	}
+}
+
+void input_handler(){
+	if(message_incoming){
+		shit_fuck = receive();
+	}
 }
 
 //AnalogRead
@@ -257,7 +282,8 @@ int main() {
 	SCH_Add_Task(readLDR,0,3000);
 	SCH_Add_Task(SR04Signal,0,500);
 	SCH_Add_Task(transmitData,100,100);
-
+	SCH_Add_Task(input_handler,0,100);
+	
 	SCH_Start();
 
 	//run scheduler
