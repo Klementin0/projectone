@@ -114,6 +114,7 @@ int message_incoming(void)
 }
 
 void input_handler(){
+	input = 0;
 	if(message_incoming()){
 		input = receive();
 		//Automodus veranderen
