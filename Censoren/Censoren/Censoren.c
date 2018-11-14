@@ -110,9 +110,10 @@ int message_incoming(void)
 }
 
 void input_handler(){
-	if(message_incoming){
-		shit_fuck = receive();
+	if(message_incoming()){
+		shit_fuck = receive();	transmit(shit_fuck);
 	}
+
 }
 
 //AnalogRead
@@ -309,9 +310,9 @@ int main() {
 	
 	SCH_Add_Task(calculateAvgTemp,0,4000);
 	SCH_Add_Task(readLDR,0,3000);
-	SCH_Add_Task(SR04Signal,0,500);
-	SCH_Add_Task(transmitData,100,100);
-	//SCH_Add_Task(input_handler,0,100);
+	SCH_Add_Task(SR04Signal,0,50);
+	SCH_Add_Task(transmitData,0,60);
+	SCH_Add_Task(input_handler,0,1);
 	SCH_Add_Task(autoMode,200,1000);
 	
 	SCH_Start();
