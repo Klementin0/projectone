@@ -2,7 +2,6 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLineEdit
 import serial_se_re
 import threading
-from time import sleep
 
 serialPort = serial_se_re.SerialPort()
 
