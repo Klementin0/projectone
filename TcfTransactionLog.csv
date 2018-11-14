@@ -1,6 +1,10 @@
 Service , Message , Max , Min , Average , Count , frequency , TimedOut
 
+<<<<<<< HEAD
+Stream,setLogBits,16.9589,16.9589,16.9589,1,0
+=======
 Stream,setLogBits,0,0,0,1,0
+<<<<<<< HEAD
 Tool,setupTool,79.909,79.909,79.909,1,0
 Tool,getContext,2.9794,1.9944,2.4869,2,0
 Tool,connect,0.9966,0.9966,0.9966,1,0
@@ -20,3 +24,6 @@ Expressions,compute,3.0013,3.0013,3.0013,1,0
 Expressions,dispose,0.9646,0.9646,0.9646,1,0
 Processes,terminate,126.1353,126.1353,126.1353,1,0
 Tool,tearDownTool,5.0103,5.0103,5.0103,1,0
+=======
+>>>>>>> 5e28c164aff2985ef772093e18a5339a4c12ced1
+>>>>>>> 667a8d81287b2612ec6ee77a99df9628207362ff
