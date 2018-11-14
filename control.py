@@ -9,7 +9,7 @@ def SendDataCommand():
     serialPort.Stuur("2")
 
 def Verbinden():
-    serialPort.Open("COM3",19200)
+    serialPort.Open("COM4",19200)
     serialPort.Lees()
 
 def InsertText():
@@ -17,7 +17,6 @@ def InsertText():
 
 def printlist():
     print(serialPort.Return_lis())
-
 
 def AfstandPull():
     lis = serialPort.Return_lis()
@@ -80,4 +79,4 @@ instert_text.clicked.connect(lambda: InsertText())
 
 window.setLayout(layout)
 window.show()
-app.exec_()
+sys.exit(app.exec_(), serialPort.Sluiten())
