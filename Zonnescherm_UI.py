@@ -62,6 +62,12 @@ class Ui_MainWindow(object):
         self.verbinding_verbreken.setObjectName("verbinding verbreken")
         self.verbinding_verbreken.clicked.connect(self.verbinding_verbreken_action)
 
+        #verbinding verbreken
+        self.automatisch_manual = QtWidgets.QPushButton(self.centralwidget)
+        self.automatisch_manual.setGeometry(QtCore.QRect(200, 100, 150, 30))
+        self.automatisch_manual.setObjectName("automatisch_manual")
+        self.automatisch_manual.clicked.connect(self.automatisch_manual_action)
+
         #status updaten
         self.status_update = QtWidgets.QPushButton(self.centralwidget)
         self.status_update.setGeometry(QtCore.QRect(20, 10, 100, 30))
@@ -123,6 +129,9 @@ class Ui_MainWindow(object):
         #serialPort.Stuur("Basic Send")
         serialPort.Sluiten()
 
+    def automatisch_manual_action(self):
+        serialPort.Stuur("1")
+
     # status updaten
     def status_update_action(self):
         _vertalen = QtCore.QCoreApplication.translate
@@ -149,6 +158,7 @@ class Ui_MainWindow(object):
         self.inrollen.setText(_vertalen("MainWindow", "Inrollen"))
         self.uitrollen.setText(_vertalen("MainWindow", "Uitrollen"))
         self.meer_informatie.setText(_vertalen("MainWindow", "Meer informatie"))
+        self.automatisch_manual.setText(_vertalen("MainWindow", "Automatisch / Manual"))
         self.actionVerversen.setText(_vertalen("MainWindow", "Verversen"))
         self.verbinden.setText(_vertalen("MainWindow", "Verbinden"))
         self.verbinding_verbreken.setText(_vertalen("MainWindow", "Verbinding verbreken"))
