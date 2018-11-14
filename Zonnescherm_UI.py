@@ -57,11 +57,22 @@ class Ui_MainWindow(object):
         self.verbinden.setObjectName("verzenden")
         self.verbinden.clicked.connect(self.verbinden_action)
 
-
+        #verbinding verbreken
         self.verbinding_verbreken = QtWidgets.QPushButton(self.centralwidget)
         self.verbinding_verbreken.setGeometry(QtCore.QRect(200, 100, 150, 30))
         self.verbinding_verbreken.setObjectName("verbinding verbreken")
         self.verbinding_verbreken.clicked.connect(self.verbinding_verbreken_action)
+
+        #status updaten
+        self.status_update = QtWidgets.QPushButton(self.centralwidget)
+        self.status_update.setGeometry(QtCore.QRect(20, 10, 100, 30))
+        self.status_update.setObjectName("status update")
+        self.status_update.clicked.connect(self.status_update_action)
+
+        #status label
+        self.status_label = QtWidgets.QLabel(self.centralwidget)
+        self.status_label.setGeometry(QtCore.QRect(30, 100, 100, 30))
+        self.status_label.setObjectName("status_label")
 
 
         MainWindow.setCentralWidget(self.centralwidget)
@@ -108,6 +119,11 @@ class Ui_MainWindow(object):
         #serialPort.Stuur("Basic Send")
         serialPort.Sluiten()
 
+    # status updaten
+    def status_update_action(self):
+        print("update status")
+
+
     #namen definiëren
     def vertalen(self, MainWindow):
         _vertalen = QtCore.QCoreApplication.translate
@@ -120,6 +136,8 @@ class Ui_MainWindow(object):
         self.actionVerversen.setText(_vertalen("MainWindow", "Verversen"))
         self.verbinden.setText(_vertalen("MainWindow", "Verbinden"))
         self.verbinding_verbreken.setText(_vertalen("MainWindow", "Verbinding verbreken"))
+        self.status_update.setText(_vertalen("MainWindow", "Status updaten"))
+        self.status_label.setText(_vertalen("MainWindow", "27 ℃ / Uigerold"))
 
 
 
