@@ -120,10 +120,12 @@ void input_handler(){
 		if (input = 49){
 			if(mode = 0){
 				mode = 1;
+				PORTD |= 0b00100000;
 			}
 			if (mode = 1)
 			{
 				mode = 0;
+				PORTD &= 0b00011100;
 			}
 		}
 		//afstand instellen
@@ -275,22 +277,34 @@ void autoMode()
 void rollOut()
 {
 	uint8_t status = PORTD;
-	if (status &= 0b00000100)
+	if (status &= 0b00100100)
 	{
-		PORTD = PORTD<<1;
+		PORTD = 0b00101000;
 		_delay_ms(3000);
-		PORTD = PORTD<<1;
+		PORTD = 0b00110000;
+	}
+	else if (status &= 0b00000100)
+	{
+		PORTD = 0b00001000;
+		_delay_ms(3000);
+		PORTD = 0b00010000;
 	}
 }
 
 void rollIn()
 {
 	uint8_t status = PORTD;
-	if (status &= 0b00010000)
+	if (status &= 0b00110000)
 	{
-		PORTD = PORTD>>1       ;
+		PORTD = 0b00101000;
 		_delay_ms(3000);
-		PORTD = PORTD>>1;
+		PORTD = 0b00100100;
+	}
+	else if (status &= 0b00010000)
+	{
+		PORTD = 0b00001000;
+		_delay_ms(3000);
+		PORTD = 0b00000100;
 	}
 }
 
@@ -323,7 +337,7 @@ int main() {
 	//Poort init
 	DDRB = 0xfe;
 	DDRD = 0xff;
-	PORTD = 0b00000100;
+	PORTD = 0b00100100;
 
 	//PCINT0 init
 	PCICR |= (1 << PCIE0);
