@@ -89,4 +89,18 @@ class SerialPort(threading.Thread):
             temp = self.lis[::3]
             return temp
         else:
-            print("cant return list")
+            print("Cant return temperature list")
+
+    def Return_licht(self):
+        if self.isopen:
+            licht = self.lis[1::3]
+            return licht
+        else:
+            print("Cant return licht list")
+
+    def Return_afstand(self):
+        if self.isopen:
+            afstand = self.lis[2::3]
+            return afstand
+        else:
+            print("Cant return aftand list")

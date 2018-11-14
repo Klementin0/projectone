@@ -62,9 +62,9 @@ class Ui_MainWindow(object):
         self.verbinding_verbreken.setObjectName("verbinding verbreken")
         self.verbinding_verbreken.clicked.connect(self.verbinding_verbreken_action)
 
-        #automatisch manual
+        #Automatisch button
         self.automatisch_manual = QtWidgets.QPushButton(self.centralwidget)
-        self.automatisch_manual.setGeometry(QtCore.QRect(135, 10, 100, 30))
+        self.automatisch_manual.setGeometry(QtCore.QRect(200, 100, 150, 30))
         self.automatisch_manual.setObjectName("automatisch_manual")
         self.automatisch_manual.clicked.connect(self.automatisch_manual_action)
 
@@ -111,8 +111,8 @@ class Ui_MainWindow(object):
     # actie wanneer de knop meer_informatie_action wordt ingedrukt
     def meer_informatie_action(self):
         temp = serialPort.Return_temp()
-        licht = [0, 1, 1, 1]
-        afstand = [155,120,23]
+        licht = serialPort.Return_licht()
+        afstand = serialPort.Return_afstand()
         if not afstand:
             print("Opflikkeren, ie krijgt geen grafiek")
         else:
@@ -120,7 +120,7 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop verbinden_action wordt ingedrukt
     def verbinden_action(self):
-        serialPort.Open("COM3", 19200)
+        serialPort.Open("COM4", 19200)
         serialPort.Lees()
 
     # actie wanneer de knop verbinding_verbreken_action wordt ingedrukt
@@ -130,6 +130,11 @@ class Ui_MainWindow(object):
         serialPort.Sluiten()
 
     def automatisch_manual_action(self):
+        t = self.automatisch_manual.text()
+        if (t == "Manual"):
+            self.automatisch_manual.setText("Automatisch")
+        else:
+            self.automatisch_manual.setText("Manual")
         serialPort.Stuur("1")
 
     # status updaten
@@ -158,7 +163,7 @@ class Ui_MainWindow(object):
         self.inrollen.setText(_vertalen("MainWindow", "Inrollen"))
         self.uitrollen.setText(_vertalen("MainWindow", "Uitrollen"))
         self.meer_informatie.setText(_vertalen("MainWindow", "Meer informatie"))
-        self.automatisch_manual.setText(_vertalen("MainWindow", "Automatisch / Manual"))
+        self.automatisch_manual.setText(_vertalen("MainWindow", "Manual"))
         self.actionVerversen.setText(_vertalen("MainWindow", "Verversen"))
         self.verbinden.setText(_vertalen("MainWindow", "Verbinden"))
         self.verbinding_verbreken.setText(_vertalen("MainWindow", "Verbinding verbreken"))
