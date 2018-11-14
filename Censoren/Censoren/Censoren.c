@@ -123,11 +123,12 @@ void input_handler(){
 				mode = 1;
 				PORTD |= 0b00100000;
 			}
-			if (mode == 1)
+			else if (mode == 1)
 			{
 				mode = 0;
 				PORTD &= 0b00011100;
 			}
+			else{mode = 1;}
 		}
 		//afstand instellen
 		if (input = 50)
