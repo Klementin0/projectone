@@ -1,11 +1,10 @@
 import serial_se_re
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import meer_informatie
 
 #Maak nieuw Zonnescherm
 serialPort = serial_se_re.SerialPort()
-
 
 def InsertText():
     tekst_veld.insert("kek")
@@ -105,8 +104,13 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop meer_informatie_action wordt ingedrukt
     def meer_informatie_action(self):
-        print("Meer informatie")
-        import meer_informatie
+        temp = [20, 25, 21, 26]
+        licht = [0, 1, 1, 1]
+        afstand = [155,120,23]
+        if not afstand:
+            print("Opflikkeren, ie krijgt geen grafiek")
+        else:
+            meer_informatie.maak_grafiek(temp, licht, afstand)
 
     # actie wanneer de knop verbinden_action wordt ingedrukt
     def verbinden_action(self):
@@ -131,6 +135,10 @@ class Ui_MainWindow(object):
             lasttemp = lasttemp[0]
 
         self.status_label.setText(_vertalen("MainWindow", " "+str(lasttemp)+" ℃ / Uitgerold"))
+
+    def temp_return():
+        temp = serialPort.Return_temp()
+        return temp
 
     #namen definiëren
     def vertalen(self, MainWindow):
