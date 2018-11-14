@@ -125,7 +125,7 @@ int readLDR()
 	ADCvalue = ADCsingleREAD(1);	//Lees de ADC uit voor pin 1 en sla deze op in ADCValue
 	if (ADCvalue <= 150) //maak booleaanse expressie met licht(1) of donker(0) als uitkomst
 	{
-		LIGHT = 0;	
+		LIGHT = 0;
 	}
 	if (ADCvalue > 150)
 	{
@@ -166,7 +166,7 @@ void SR04Signal(){
 	if(distance <= 4){transmit(4);}
 	else if(distance > 160){transmit(161);}
 	else{transmit(distance);}
-	
+
 }
 
 //overflow interrupt op timer 0
@@ -230,9 +230,9 @@ int main() {
 
 	//scheduler
 	SCH_Init_T1();
-	SCH_Add_Task(readTemp,0,300);
-	SCH_Add_Task(readLDR,100,300);
-	SCH_Add_Task(SR04Signal,200,300);
+	SCH_Add_Task(readTemp,100,300);
+	SCH_Add_Task(readLDR,200,300);
+	SCH_Add_Task(SR04Signal,300,300);
 	SCH_Start();
 
 	//run scheduler
