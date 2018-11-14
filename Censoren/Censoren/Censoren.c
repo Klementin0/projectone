@@ -68,7 +68,11 @@ uint8_t light = 0;
 uint8_t currentdistance;
 uint8_t mode = 1;
 
-char shit_fuck;
+int minAfstand = 6;
+int maxAfstand = 160;
+int minTemp;
+
+char input;
 
 //serialisering
 void uart_init() {
@@ -110,9 +114,32 @@ int message_incoming(void)
 }
 
 void input_handler(){
-	if(message_incoming){
-		shit_fuck = receive();
+	if(message_incoming()){
+		input = receive();
+		//Automodus veranderen
+		if (input = 49){
+			if(mode = 0){
+				mode = 1;
+			}
+			if (mode = 1)
+			{
+				mode = 0;
+			}
+		}
+		//afstand instellen
+		if (input = 50)
+		{
+			minAfstand;
+			maxAfstand;
+		}
+		//min temperatuur instellen
+		if (input = 51)
+		{
+			minTemp;
+		}
+		
 	}
+
 }
 
 //AnalogRead
@@ -201,8 +228,8 @@ void SR04Signal(){
 	distance = 17013.0*distance;
 
 	//verzenden naar serial
-	if(distance <= 6){currentdistance = 5;}
-	else if(distance > 160){currentdistance = 161;}
+	if(distance <= minAfstand){currentdistance = 5;}
+	else if(distance > maxAfstand){currentdistance = 161;}
 	else{currentdistance = round(distance);}
 
 }
@@ -309,9 +336,9 @@ int main() {
 	
 	SCH_Add_Task(calculateAvgTemp,0,4000);
 	SCH_Add_Task(readLDR,0,3000);
-	SCH_Add_Task(SR04Signal,0,500);
-	SCH_Add_Task(transmitData,100,100);
-	//SCH_Add_Task(input_handler,0,100);
+	SCH_Add_Task(SR04Signal,0,50);
+	SCH_Add_Task(transmitData,0,60);
+	SCH_Add_Task(input_handler,0,1);
 	SCH_Add_Task(autoMode,200,1000);
 	
 	SCH_Start();

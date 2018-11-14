@@ -6,10 +6,10 @@ import threading
 serialPort = serial_se_re.SerialPort()
 
 def SendDataCommand():
-    serialPort.Stuur("2")
+    serialPort.Stuur("0")
 
 def Verbinden():
-    serialPort.Open("COM4",19200)
+    serialPort.Open("COM3",19200)
     serialPort.Lees()
 
 def InsertText():
