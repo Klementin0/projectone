@@ -6,6 +6,9 @@ import meer_informatie
 #Maak nieuw Zonnescherm
 serialPort = serial_se_re.SerialPort()
 
+stand_max= 160
+stand_min = 6
+
 def InsertText():
     tekst_veld.insert("kek")
 
@@ -27,10 +30,20 @@ class Ui_MainWindow(object):
         self.minimale_stand.clicked.connect(self.minimale_stand_action)
 
         #button maximale stand
+        self.maximale_stand_kleiner = QtWidgets.QPushButton(self.centralwidget)
+        self.maximale_stand_kleiner.setGeometry(QtCore.QRect(350, 10, 20, 30))
+        self.maximale_stand_kleiner.setObjectName("maximale_stand_kleiner")
+        self.maximale_stand_kleiner.clicked.connect(self.maximale_stand_action)
+
         self.maximale_stand = QtWidgets.QPushButton(self.centralwidget)
-        self.maximale_stand.setGeometry(QtCore.QRect(350, 10, 100, 30))
+        self.maximale_stand.setGeometry(QtCore.QRect(370, 10, 50, 30))
         self.maximale_stand.setObjectName("maximale_stand")
         self.maximale_stand.clicked.connect(self.maximale_stand_action)
+
+        self.maximale_stand_groter = QtWidgets.QPushButton(self.centralwidget)
+        self.maximale_stand_groter.setGeometry(QtCore.QRect(420, 10, 20, 30))
+        self.maximale_stand_groter.setObjectName("maximale_stand_kleiner")
+        self.maximale_stand_groter.clicked.connect(self.maximale_stand_action)
 
         #button inrollen
         self.inrollen = QtWidgets.QPushButton(self.centralwidget)
@@ -64,7 +77,7 @@ class Ui_MainWindow(object):
 
         #Automatisch button
         self.automatisch_manual = QtWidgets.QPushButton(self.centralwidget)
-        self.automatisch_manual.setGeometry(QtCore.QRect(200, 100, 150, 30))
+        self.automatisch_manual.setGeometry(QtCore.QRect(135, 10, 100, 30))
         self.automatisch_manual.setObjectName("automatisch_manual")
         self.automatisch_manual.clicked.connect(self.automatisch_manual_action)
 
@@ -93,11 +106,21 @@ class Ui_MainWindow(object):
 
     #actie wanneer de knop minimale_stand_action wordt ingedrukt
     def minimale_stand_action(self):
-        print("Minimale afstand")
+
+        if self.stand > 11:
+            self.stand = self.stand - 5
+            serialPort.Stuur("4")
+        else:
+            print("Dit is de minimale stand mogol")
+
 
     # actie wanneer de knop maximale_stand_action wordt ingedrukt
     def maximale_stand_action(self):
-        print("Maximale stand")
+        if self.stand < 155:
+            self.stand = self.stand + 5
+            serialPort.Stuur("2")
+        else:
+            print("Dit is de maximale stand mogol")
 
     # actie wanneer de knop inrollen_action wordt ingedrukt
     def inrollen_action(self):
@@ -158,8 +181,11 @@ class Ui_MainWindow(object):
     def vertalen(self, MainWindow):
         _vertalen = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_vertalen("MainWindow", "MainWindow"))
+        self.status_update.setText(_vertalen("MainWindow", "Status updaten"))
         self.minimale_stand.setText(_vertalen("MainWindow", "Minimale stand"))
+        self.maximale_stand_kleiner.setText(_vertalen("MainWindow", "<"))
         self.maximale_stand.setText(_vertalen("MainWindow", "Maximale stand"))
+        self.maximale_stand_groter.setText(_vertalen("MainWindow", ">"))
         self.inrollen.setText(_vertalen("MainWindow", "Inrollen"))
         self.uitrollen.setText(_vertalen("MainWindow", "Uitrollen"))
         self.meer_informatie.setText(_vertalen("MainWindow", "Meer informatie"))
@@ -168,6 +194,7 @@ class Ui_MainWindow(object):
         self.verbinden.setText(_vertalen("MainWindow", "Verbinden"))
         self.verbinding_verbreken.setText(_vertalen("MainWindow", "Verbinding verbreken"))
         self.status_update.setText(_vertalen("MainWindow", "Status updaten"))
+
 
 
 
