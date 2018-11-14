@@ -84,3 +84,10 @@ class SerialPort(threading.Thread):
             return self.lis
         else:
             print("cant return list")
+
+    def Return_temp(self):
+        if self.isopen:
+            temp = self.lis[::3]
+            return temp
+        else:
+            print("cant return list")
