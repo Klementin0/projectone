@@ -197,7 +197,7 @@ ISR (PCINT0_vect){
 int roodLed = 0;
 int geelLed = 0;
 int groenLed = 0;
-
+/*
 void ledCheck(){
 	if(recieve & 0x01 = 1){groenLed = 1;}
 	if(recieve & 0x02 = 2){geelLed = 1;}
@@ -215,7 +215,7 @@ void ledTrigger()
 	PORTD = leds;
 
 }
-
+*/
 int main() {
 
 	//Poort init
@@ -232,7 +232,7 @@ int main() {
 	SCH_Init_T1();
 	SCH_Add_Task(readTemp,0,300);
 	SCH_Add_Task(readLDR,100,300);
-	SCH_Add_Task(SR04Signal,0,50);
+	SCH_Add_Task(SR04Signal,200,300);
 	SCH_Start();
 
 	//run scheduler

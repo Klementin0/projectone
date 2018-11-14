@@ -10,7 +10,7 @@ def SendDataCommand():
     serialPort.Stuur("Basic Send")
 
 def Verbinden():
-    serialPort.Open("COM13",19200)
+    serialPort.Open("COM3",19200)
     serialPort.Lees()
 
 def InsertText():
@@ -24,10 +24,10 @@ def AfstandPull():
     lis = serialPort.Return_lis()
     AfstandList = lis[::3]
     LaatsteAfstand = lis[len(lis)-1]
-    if(LaatsteAfstand = 4):
+    if(LaatsteAfstand == 4):
         print("Ingerolt")
         #Functie voor groen licht aan, geel licht uit
-    elif(LaatsteAfstand = 170):
+    elif(LaatsteAfstand == 170):
         print("Uitgerold")
         #Functie voor groen licht(eventueel een ander groen licht) aan, geel licht uit
     else:
@@ -40,9 +40,9 @@ def LichtPull():
     #kevins check op 3 minuten licht of niet
     #check of variabele licht aan of uit is voor 3 minuten
     Licht = 0
-    if(Licht = 0):
+    if(Licht == 0):
         print("Het is donker")
-    elif(Licht = 1):
+    elif(Licht == 1):
         print("Het is licht")
     else:
         print("Ik kijk niet meer naar het licht")
@@ -77,7 +77,7 @@ layout.addWidget(instert_text)
 instert_text.clicked.connect(lambda: InsertText())
 
 #tekst_veld = QLineEdit()
-layout.addWidget(tekst_veld)
+#layout.addWidget(tekst_veld)
 
 window.setLayout(layout)
 window.show()
