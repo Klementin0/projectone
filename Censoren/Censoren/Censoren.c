@@ -86,6 +86,7 @@ void transmit(uint8_t data)
 	// send the data
 	UDR0 = data;
 }
+
 //AnalogRead
 int ADCsingleREAD(uint8_t adctouse)
 {
@@ -95,7 +96,7 @@ int ADCsingleREAD(uint8_t adctouse)
 	ADMUX |= (1 << REFS0);    // use AVcc as the reference
 	ADMUX &= ~(1 << ADLAR);   // clear for 10 bit resolution
 
-	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);    // 128 prescale for 8Mhz
+	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);    // 128 prescale for 16Mhz
 	ADCSRA |= (1 << ADEN);    // Enable the ADC
 
 	ADCSRA |= (1 << ADSC);    // Start the ADC conversion
@@ -163,9 +164,9 @@ void SR04Signal(){
 	distance = 17013.0*distance;
 
 	//verzenden naar serial
-	if(distance <= 4){transmit(4);}
-	else if(distance > 160){transmit(161);}
-	else{transmit(distance);}
+	if(distance <= 6){transmit(5); PORTD = 0b00000100;}
+	else if(distance > 160){transmit(161); PORTD = 0b00010000;}
+	else{transmit(distance); PORTD = 0b00001000;}
 
 }
 
@@ -178,13 +179,12 @@ ISR (PCINT0_vect){
 	//als echo pin aan gaat de timer starten
 	if (PINB != 0x00){
 
-		PORTD = 0xff;
 		TCCR0B |= (1<<CS00);
 		TIMSK0 |= 1<<TOIE0;
 
 	}//als echo pin uit gaat de timer stoppen en waarden aan countTimer0 meegeven
 	else{
-		PORTD = 0x00;
+		
 		TCCR0B &= ~(1<<CS00);
 		countTimer0 += TCNT0;
 		TCNT0 = 0;
@@ -194,28 +194,6 @@ ISR (PCINT0_vect){
 	}
 }
 
-int roodLed = 0;
-int geelLed = 0;
-int groenLed = 0;
-/*
-void ledCheck(){
-	if(recieve & 0x01 = 1){groenLed = 1;}
-	if(recieve & 0x02 = 2){geelLed = 1;}
-	if(recieve & 0x04 = 4){roodLed = 1;}
-	if(recieve & 0xff = 0){roodLed = 0; geelLed = 0; groenLed = 0;}
-	ledTrigger();
-}
-
-void ledTrigger()
-{
-	//mogelijk input binnen de argumenten voor ledTrigger
-	//portd max = 0b00000111
-	//portd min = 0x00
-	int leds = roodLed<<2 + geelLed<<1 + groenLed<<0;
-	PORTD = leds;
-
-}
-*/
 int main() {
 
 	//Poort init
@@ -225,14 +203,16 @@ int main() {
 	//PCINT0 init
 	PCICR |= (1 << PCIE0);
 	PCMSK0 |= (1<< PCINT0);
-
+	
 	uart_init();//init serialisering
 
 	//scheduler
 	SCH_Init_T1();
+	
 	SCH_Add_Task(readTemp,100,300);
 	SCH_Add_Task(readLDR,200,300);
 	SCH_Add_Task(SR04Signal,300,300);
+
 	SCH_Start();
 
 	//run scheduler

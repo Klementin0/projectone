@@ -2,12 +2,11 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLineEdit
 import serial_se_re
 import threading
-from time import sleep
 
 serialPort = serial_se_re.SerialPort()
 
 def SendDataCommand():
-    serialPort.Stuur("Basic Send")
+    serialPort.Stuur("2")
 
 def Verbinden():
     serialPort.Open("COM3",19200)
@@ -19,19 +18,18 @@ def InsertText():
 def printlist():
     print(serialPort.Return_lis())
 
-
 def AfstandPull():
     lis = serialPort.Return_lis()
     AfstandList = lis[2::3]
     LaatsteAfstand = lis[len(lis)-1]
     if(LaatsteAfstand == 4):
-        print("Ingerolt")
+        serialPort.Stuur("1")
         #Functie voor groen licht aan, geel licht uit
     elif(LaatsteAfstand == 170):
-        print("Uitgerold")
+        serialPort.Stuur("3")
         #Functie voor groen licht(eventueel een ander groen licht) aan, geel licht uit
     else:
-        print("Aan het rollen")
+        serialPort.Stuur("2")
         #functie voor groene lichten uit, geel licht aan
 
 def LichtPull():
@@ -81,4 +79,4 @@ instert_text.clicked.connect(lambda: InsertText())
 
 window.setLayout(layout)
 window.show()
-app.exec_()
+sys.exit(app.exec_(), serialPort.Sluiten())
