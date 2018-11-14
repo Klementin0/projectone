@@ -63,7 +63,9 @@ No parity - 8 Data bits - 1 stop bit
 
 volatile char echoDone = 0;
 uint32_t countTimer0 = 0;
-
+float avgtemp = 0.0;
+uint8_t light = 0;
+float currentdistance;
 
 //serialisering
 void uart_init() {
@@ -110,29 +112,38 @@ int ADCsingleREAD(uint8_t adctouse)
 	return ADCval;
 }
 //Temp sensor
-int readTemp()
+float readTemp()
 {
 	int ADCvalue;	//int variabele ADCValue aanmaken
 	ADCvalue = ADCsingleREAD(0);	//Lees de ADC uit voor pin 0 en sla deze op in ADCValue
     float temperatuur = 0.00;	//Float variabele aanmaken voor het berekenen van- en opslaan van temperatuur
 	temperatuur = ((ADCvalue * (5000.0/1024.0)) - 500.0) /10.0;	//Temperatuur berekenen uit ADCValue
-	transmit(temperatuur);	//Verstuur de temperatuur via seriele verbinding.
+	return temperatuur;	//return temperatuur in float formaat
 }
 //lichtsensor
-int readLDR()
+void readLDR()
 {
 	int ADCvalue;	//int variabele ADCValue aanmaken
-	int LIGHT;	//int variabele LIGHT aanmaken
 	ADCvalue = ADCsingleREAD(1);	//Lees de ADC uit voor pin 1 en sla deze op in ADCValue
 	if (ADCvalue <= 150) //maak booleaanse expressie met licht(1) of donker(0) als uitkomst
 	{
-		LIGHT = 0;
+		light = 0;	//stel variabele light in op 0(donker)
 	}
 	if (ADCvalue > 150)
 	{
-		LIGHT = 1;
+		light = 1;	//stel variabele light in op 1(licht)
 	}
-	transmit(LIGHT);	//Verstuur de status(licht/donker)
+}
+
+void calculateAvgTemp()
+{
+	int a;
+	float totaal = 0.0;
+	for(a = 0; a <10; a++)
+	{
+		totaal += readTemp();
+	}	
+	avgtemp = totaal / 10.0;
 }
 
 //zend sr04 signaal en reken hiermee
@@ -164,10 +175,42 @@ void SR04Signal(){
 	distance = 17013.0*distance;
 
 	//verzenden naar serial
-	if(distance <= 6){transmit(5); PORTD = 0b00000100;}
-	else if(distance > 160){transmit(161); PORTD = 0b00010000;}
-	else{transmit(distance); PORTD = 0b00001000;}
+	if(distance <= 6){currentdistance = 5;}
+	else if(distance > 160){currentdistance = 161;}
+	else{currentdistance = distance;}
 
+}
+
+void transmitData()
+{
+	transmit(avgtemp);
+	_delay_ms(1);
+	transmit(light);
+	_delay_ms(1);
+	transmit(currentdistance);
+	_delay_ms(1);
+}
+
+void rollOut()
+{
+	uint8_t status = PORTD;
+	if (status &= 0b00000100)
+	{
+		PORTD = PORTD<<1;
+		_delay_ms(3000);
+		PORTD = PORTD<<1;
+	}
+}
+
+void rollIn()
+{
+	uint8_t status = PORTD;
+	if (status &= 0b00010000)
+	{
+		PORTD = PORTD>>1;
+		_delay_ms(3000);
+		PORTD = PORTD>>1;
+	}
 }
 
 //overflow interrupt op timer 0
@@ -199,6 +242,7 @@ int main() {
 	//Poort init
 	DDRB = 0xfe;
 	DDRD = 0xff;
+	PORTD = 0b00000100;
 
 	//PCINT0 init
 	PCICR |= (1 << PCIE0);
@@ -209,9 +253,10 @@ int main() {
 	//scheduler
 	SCH_Init_T1();
 	
-	SCH_Add_Task(readTemp,100,300);
-	SCH_Add_Task(readLDR,200,300);
-	SCH_Add_Task(SR04Signal,300,300);
+	SCH_Add_Task(calculateAvgTemp,0,4000);
+	SCH_Add_Task(readLDR,0,3000);
+	SCH_Add_Task(SR04Signal,0,500);
+	SCH_Add_Task(transmitData,100,100);
 
 	SCH_Start();
 
