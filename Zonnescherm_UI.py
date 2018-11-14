@@ -104,7 +104,7 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop meer_informatie_action wordt ingedrukt
     def meer_informatie_action(self):
-        temp = [20, 25, 21, 26]
+        temp = serialPort.Return_temp()
         licht = [0, 1, 1, 1]
         afstand = [155,120,23]
         if not afstand:
@@ -114,7 +114,7 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop verbinden_action wordt ingedrukt
     def verbinden_action(self):
-        serialPort.Open("COM4", 19200)
+        serialPort.Open("COM3", 19200)
         serialPort.Lees()
 
     # actie wanneer de knop verbinding_verbreken_action wordt ingedrukt
