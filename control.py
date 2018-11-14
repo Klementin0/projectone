@@ -20,11 +20,38 @@ def InsertText():
 def printlist():
     print(serialPort.Return_lis())
 
+def AfstandPull():
+    lis = serialPort.Return_lis()
+    AfstandList = lis[::3]
+    LaatsteAfstand = lis[len(lis)-1]
+    if(LaatsteAfstand = 4):
+        print("Ingerolt")
+        #Functie voor groen licht aan, geel licht uit
+    elif(LaatsteAfstand = 170):
+        print("Uitgerold")
+        #Functie voor groen licht(eventueel een ander groen licht) aan, geel licht uit
+    else:
+        print("Aan het rollen")
+        #functie voor groene lichten uit, geel licht aan
+
+def LichtPull():
+    lis = serialPort.Return_lis()
+    Lichtlis = lis[1::3]
+    #kevins check op 3 minuten licht of niet
+    #check of variabele licht aan of uit is voor 3 minuten
+    Licht = 0
+    if(Licht = 0):
+        print("Het is donker")
+    elif(Licht = 1):
+        print("Het is licht")
+    else:
+        print("Ik kijk niet meer naar het licht")
+        
+
 app = QApplication([])
 window = QWidget()
 layout = QVBoxLayout()
 window.setWindowTitle('Project One: Zonnescherm Bedieningseenheid')
-
 
 connect_button = QPushButton('Connect')
 layout.addWidget(connect_button)
