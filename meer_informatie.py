@@ -10,15 +10,21 @@ for i in range(len(temp)):
 
 temperatuur = go.Scatter(
     x= xass,
-    y= temp)
+    y= temp,
+    name = 'Temperatuur'
+)
 
 licht = go.Scatter(
     x= xass,
-    y=[50, 60, 70])
+    y=[50, 60, 70],
+    name = 'Licht'
+)
 
 afstand = go.Scatter(
     x= xass,
-    y=[600, 700, 800])
+    y=[600, 700, 800],
+    name = 'Afstand'
+)
 
 
 fig = tools.make_subplots(rows=3, cols=1, subplot_titles=('Temperatuur', 'licht', 'afstand'))
@@ -28,6 +34,6 @@ fig.append_trace(licht, 2, 1)
 fig.append_trace(afstand, 3, 1)
 
 
-fig['layout'].update(height=600, width=600, title='multi.html')
+fig['layout'].update(height=600, width=600, title='Gegevens zonnescherm:')
 
 ply.plot(fig, filename='multi.html')
