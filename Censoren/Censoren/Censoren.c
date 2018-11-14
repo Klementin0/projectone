@@ -68,7 +68,7 @@ uint8_t light = 0;
 uint8_t currentdistance;
 uint8_t mode = 1;
 
-char shit_fuck;
+char input;
 
 //serialisering
 void uart_init() {
@@ -111,7 +111,18 @@ int message_incoming(void)
 
 void input_handler(){
 	if(message_incoming()){
-		shit_fuck = receive();	transmit(shit_fuck);
+		input = receive();
+		
+		if (input = 49){
+			if(mode = 0){
+				mode = 1;
+			}
+			if (mode = 1)
+			{
+				mode = 0;
+			}
+		}
+		
 	}
 
 }
