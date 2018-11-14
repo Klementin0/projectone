@@ -251,10 +251,10 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
  .text          0x0000026c      0x2c2 Censoren.o
                 0x0000026c                uart_init
                 0x00000288                transmit
-                0x00000298                SR04Signal
-                0x00000380                ADCsingleREAD
-                0x000003c0                readTemp
-                0x00000406                readLDR
+                0x00000298                ADCsingleREAD
+                0x000002d8                readLDR
+                0x000002f0                readTemp
+                0x00000336                SR04Signal
                 0x0000041e                __vector_16
                 0x0000046a                __vector_3
                 0x000004f0                main
@@ -578,25 +578,25 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
  .debug_abbrev  0x00000329       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
  .debug_abbrev  0x0000033d       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
 
-.debug_line     0x00000000      0x4f8
+.debug_line     0x00000000      0x4f7
  *(.debug_line)
  .debug_line    0x00000000      0x158 AVR_TTC_scheduler.o
- .debug_line    0x00000158      0x1f9 Censoren.o
- .debug_line    0x00000351       0x88 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .debug_line    0x000003d9       0x91 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .debug_line    0x0000046a       0x8e c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+ .debug_line    0x00000158      0x1f8 Censoren.o
+ .debug_line    0x00000350       0x88 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .debug_line    0x000003d8       0x91 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .debug_line    0x00000469       0x8e c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
 
 .debug_frame    0x00000000      0x1f8
  *(.debug_frame)
  .debug_frame   0x00000000       0xf0 AVR_TTC_scheduler.o
  .debug_frame   0x000000f0      0x108 Censoren.o
 
-.debug_str      0x00000000      0x314
+.debug_str      0x00000000      0x2e8
  *(.debug_str)
  .debug_str     0x00000000      0x17f AVR_TTC_scheduler.o
                                 0x1b3 (size before relaxing)
- .debug_str     0x0000017f      0x195 Censoren.o
-                                0x254 (size before relaxing)
+ .debug_str     0x0000017f      0x169 Censoren.o
+                                0x228 (size before relaxing)
 
 .debug_loc      0x00000000      0x548
  *(.debug_loc)

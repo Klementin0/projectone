@@ -19,13 +19,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 00000351  00000000  00000000  00003e60  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000004f8  00000000  00000000  000041b1  2**0
+  8 .debug_line   000004f7  00000000  00000000  000041b1  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000001f8  00000000  00000000  000046ac  2**2
+  9 .debug_frame  000001f8  00000000  00000000  000046a8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000314  00000000  00000000  000048a4  2**0
+ 10 .debug_str    000002e8  00000000  00000000  000048a0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000548  00000000  00000000  00004bb8  2**0
+ 11 .debug_loc    00000548  00000000  00000000  00004b88  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -372,276 +372,274 @@ void transmit(uint8_t data)
 }
  296:	08 95       	ret
 
-00000298 <SR04Signal>:
-	}
-	transmit(LIGHT);	//Verstuur de status(licht/donker)
-}
-
-//zend sr04 signaal en reken hiermee
-void SR04Signal(){
- 298:	0f 93       	push	r16
- 29a:	1f 93       	push	r17
- 29c:	cf 93       	push	r28
- 29e:	df 93       	push	r29
-
-	float distance = 0.00;
-
-	//echoDone is een boolean die checkt of de echo klaar is
-	//Als de echo pas klaar is mag ermee worden gerekend
-	echoDone = 0;
- 2a0:	10 92 0a 01 	sts	0x010A, r1
-
-	//Timer0 counter wordt gereset
-	countTimer0 = 0;
- 2a4:	10 92 06 01 	sts	0x0106, r1
- 2a8:	10 92 07 01 	sts	0x0107, r1
- 2ac:	10 92 08 01 	sts	0x0108, r1
- 2b0:	10 92 09 01 	sts	0x0109, r1
-
-
-	//pulse sturen naar de trigger
-	PORTB = 0x00;
- 2b4:	15 b8       	out	0x05, r1	; 5
-	#else
-		//round up by default
-		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
-	#endif
-
-	__builtin_avr_delay_cycles(__ticks_dc);
- 2b6:	8f e3       	ldi	r24, 0x3F	; 63
- 2b8:	9f e1       	ldi	r25, 0x1F	; 31
- 2ba:	01 97       	sbiw	r24, 0x01	; 1
- 2bc:	f1 f7       	brne	.-4      	; 0x2ba <SR04Signal+0x22>
- 2be:	00 c0       	rjmp	.+0      	; 0x2c0 <SR04Signal+0x28>
- 2c0:	00 00       	nop
-	_delay_ms(2);
-	PORTB = 0xff;
- 2c2:	8f ef       	ldi	r24, 0xFF	; 255
- 2c4:	85 b9       	out	0x05, r24	; 5
-	#else
-		//round up by default
-		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
-	#endif
-
-	__builtin_avr_delay_cycles(__ticks_dc);
- 2c6:	95 e3       	ldi	r25, 0x35	; 53
- 2c8:	9a 95       	dec	r25
- 2ca:	f1 f7       	brne	.-4      	; 0x2c8 <SR04Signal+0x30>
- 2cc:	00 00       	nop
-	_delay_us(10);
-	PORTB = 0x00;
- 2ce:	15 b8       	out	0x05, r1	; 5
-
-	//check of echo weer low is
-	while (!echoDone);
- 2d0:	80 91 0a 01 	lds	r24, 0x010A
- 2d4:	88 23       	and	r24, r24
- 2d6:	e1 f3       	breq	.-8      	; 0x2d0 <SR04Signal+0x38>
-
-	//berekening afstand
-	distance = countTimer0/16E6;
- 2d8:	60 91 06 01 	lds	r22, 0x0106
- 2dc:	70 91 07 01 	lds	r23, 0x0107
- 2e0:	80 91 08 01 	lds	r24, 0x0108
- 2e4:	90 91 09 01 	lds	r25, 0x0109
- 2e8:	0e 94 94 03 	call	0x728	; 0x728 <__floatunsisf>
- 2ec:	20 e0       	ldi	r18, 0x00	; 0
- 2ee:	34 e2       	ldi	r19, 0x24	; 36
- 2f0:	44 e7       	ldi	r20, 0x74	; 116
- 2f2:	5b e4       	ldi	r21, 0x4B	; 75
- 2f4:	0e 94 00 03 	call	0x600	; 0x600 <__divsf3>
-	distance = 17013.0*distance;
- 2f8:	46 2f       	mov	r20, r22
- 2fa:	57 2f       	mov	r21, r23
- 2fc:	68 2f       	mov	r22, r24
- 2fe:	79 2f       	mov	r23, r25
- 300:	cb 01       	movw	r24, r22
- 302:	ba 01       	movw	r22, r20
- 304:	20 e0       	ldi	r18, 0x00	; 0
- 306:	3a ee       	ldi	r19, 0xEA	; 234
- 308:	44 e8       	ldi	r20, 0x84	; 132
- 30a:	56 e4       	ldi	r21, 0x46	; 70
- 30c:	0e 94 4a 04 	call	0x894	; 0x894 <__mulsf3>
- 310:	06 2f       	mov	r16, r22
- 312:	17 2f       	mov	r17, r23
- 314:	d8 2f       	mov	r29, r24
- 316:	c9 2f       	mov	r28, r25
-
-	//verzenden naar serial
-	if(distance <= 4){transmit(4);}
- 318:	86 2f       	mov	r24, r22
- 31a:	91 2f       	mov	r25, r17
- 31c:	ad 2f       	mov	r26, r29
- 31e:	bc 2f       	mov	r27, r28
- 320:	bc 01       	movw	r22, r24
- 322:	cd 01       	movw	r24, r26
- 324:	20 e0       	ldi	r18, 0x00	; 0
- 326:	30 e0       	ldi	r19, 0x00	; 0
- 328:	40 e8       	ldi	r20, 0x80	; 128
- 32a:	50 e4       	ldi	r21, 0x40	; 64
- 32c:	0e 94 fc 02 	call	0x5f8	; 0x5f8 <__cmpsf2>
- 330:	18 16       	cp	r1, r24
- 332:	24 f0       	brlt	.+8      	; 0x33c <SR04Signal+0xa4>
- 334:	84 e0       	ldi	r24, 0x04	; 4
- 336:	0e 94 44 01 	call	0x288	; 0x288 <transmit>
- 33a:	1d c0       	rjmp	.+58     	; 0x376 <SR04Signal+0xde>
-	else if(distance > 160){transmit(161);}
- 33c:	80 2f       	mov	r24, r16
- 33e:	91 2f       	mov	r25, r17
- 340:	ad 2f       	mov	r26, r29
- 342:	bc 2f       	mov	r27, r28
- 344:	bc 01       	movw	r22, r24
- 346:	cd 01       	movw	r24, r26
- 348:	20 e0       	ldi	r18, 0x00	; 0
- 34a:	30 e0       	ldi	r19, 0x00	; 0
- 34c:	40 e2       	ldi	r20, 0x20	; 32
- 34e:	53 e4       	ldi	r21, 0x43	; 67
- 350:	0e 94 46 04 	call	0x88c	; 0x88c <__gesf2>
- 354:	18 16       	cp	r1, r24
- 356:	24 f4       	brge	.+8      	; 0x360 <SR04Signal+0xc8>
- 358:	81 ea       	ldi	r24, 0xA1	; 161
- 35a:	0e 94 44 01 	call	0x288	; 0x288 <transmit>
- 35e:	0b c0       	rjmp	.+22     	; 0x376 <SR04Signal+0xde>
-	else{transmit(distance);}
- 360:	80 2f       	mov	r24, r16
- 362:	91 2f       	mov	r25, r17
- 364:	ad 2f       	mov	r26, r29
- 366:	bc 2f       	mov	r27, r28
- 368:	bc 01       	movw	r22, r24
- 36a:	cd 01       	movw	r24, r26
- 36c:	0e 94 68 03 	call	0x6d0	; 0x6d0 <__fixunssfsi>
- 370:	86 2f       	mov	r24, r22
- 372:	0e 94 44 01 	call	0x288	; 0x288 <transmit>
-	
-}
- 376:	df 91       	pop	r29
- 378:	cf 91       	pop	r28
- 37a:	1f 91       	pop	r17
- 37c:	0f 91       	pop	r16
- 37e:	08 95       	ret
-
-00000380 <ADCsingleREAD>:
+00000298 <ADCsingleREAD>:
 //AnalogRead
 int ADCsingleREAD(uint8_t adctouse)
 {
 	int ADCval;
 
 	ADMUX = adctouse;         // use #1 ADC
- 380:	ec e7       	ldi	r30, 0x7C	; 124
- 382:	f0 e0       	ldi	r31, 0x00	; 0
- 384:	80 83       	st	Z, r24
+ 298:	ec e7       	ldi	r30, 0x7C	; 124
+ 29a:	f0 e0       	ldi	r31, 0x00	; 0
+ 29c:	80 83       	st	Z, r24
 	ADMUX |= (1 << REFS0);    // use AVcc as the reference
- 386:	80 81       	ld	r24, Z
- 388:	80 64       	ori	r24, 0x40	; 64
- 38a:	80 83       	st	Z, r24
+ 29e:	80 81       	ld	r24, Z
+ 2a0:	80 64       	ori	r24, 0x40	; 64
+ 2a2:	80 83       	st	Z, r24
 	ADMUX &= ~(1 << ADLAR);   // clear for 10 bit resolution
- 38c:	80 81       	ld	r24, Z
- 38e:	8f 7d       	andi	r24, 0xDF	; 223
- 390:	80 83       	st	Z, r24
+ 2a4:	80 81       	ld	r24, Z
+ 2a6:	8f 7d       	andi	r24, 0xDF	; 223
+ 2a8:	80 83       	st	Z, r24
 
 	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);    // 128 prescale for 8Mhz
- 392:	ea e7       	ldi	r30, 0x7A	; 122
- 394:	f0 e0       	ldi	r31, 0x00	; 0
- 396:	80 81       	ld	r24, Z
- 398:	87 60       	ori	r24, 0x07	; 7
- 39a:	80 83       	st	Z, r24
+ 2aa:	ea e7       	ldi	r30, 0x7A	; 122
+ 2ac:	f0 e0       	ldi	r31, 0x00	; 0
+ 2ae:	80 81       	ld	r24, Z
+ 2b0:	87 60       	ori	r24, 0x07	; 7
+ 2b2:	80 83       	st	Z, r24
 	ADCSRA |= (1 << ADEN);    // Enable the ADC
- 39c:	80 81       	ld	r24, Z
- 39e:	80 68       	ori	r24, 0x80	; 128
- 3a0:	80 83       	st	Z, r24
+ 2b4:	80 81       	ld	r24, Z
+ 2b6:	80 68       	ori	r24, 0x80	; 128
+ 2b8:	80 83       	st	Z, r24
 
 	ADCSRA |= (1 << ADSC);    // Start the ADC conversion
- 3a2:	80 81       	ld	r24, Z
- 3a4:	80 64       	ori	r24, 0x40	; 64
- 3a6:	80 83       	st	Z, r24
+ 2ba:	80 81       	ld	r24, Z
+ 2bc:	80 64       	ori	r24, 0x40	; 64
+ 2be:	80 83       	st	Z, r24
 
 	while(ADCSRA & (1 << ADSC));      // Thanks T, this line waits for the ADC to finish
- 3a8:	80 81       	ld	r24, Z
- 3aa:	86 fd       	sbrc	r24, 6
- 3ac:	fd cf       	rjmp	.-6      	; 0x3a8 <ADCsingleREAD+0x28>
+ 2c0:	80 81       	ld	r24, Z
+ 2c2:	86 fd       	sbrc	r24, 6
+ 2c4:	fd cf       	rjmp	.-6      	; 0x2c0 <ADCsingleREAD+0x28>
 
 
 	ADCval = ADCL;
- 3ae:	20 91 78 00 	lds	r18, 0x0078
+ 2c6:	20 91 78 00 	lds	r18, 0x0078
 		ADCval = (ADCH << 8) + ADCval;    // ADCH is read so ADC can be updated again
- 3b2:	30 91 79 00 	lds	r19, 0x0079
- 3b6:	93 2f       	mov	r25, r19
- 3b8:	80 e0       	ldi	r24, 0x00	; 0
- 3ba:	82 0f       	add	r24, r18
- 3bc:	91 1d       	adc	r25, r1
+ 2ca:	30 91 79 00 	lds	r19, 0x0079
+ 2ce:	93 2f       	mov	r25, r19
+ 2d0:	80 e0       	ldi	r24, 0x00	; 0
+ 2d2:	82 0f       	add	r24, r18
+ 2d4:	91 1d       	adc	r25, r1
 
 	return ADCval;
 }
- 3be:	08 95       	ret
+ 2d6:	08 95       	ret
 
-000003c0 <readTemp>:
-//Temp sensor
-int readTemp()
-{
-	int ADCvalue;	//int variabele ADCValue aanmaken
-	ADCvalue = ADCsingleREAD(0);	//Lees de ADC uit voor pin 0 en sla deze op in ADCValue
- 3c0:	80 e0       	ldi	r24, 0x00	; 0
- 3c2:	0e 94 c0 01 	call	0x380	; 0x380 <ADCsingleREAD>
-    float temperatuur = 0.00;	//Float variabele aanmaken voor het berekenen van- en opslaan van temperatuur
-	temperatuur = ((ADCvalue * (5000.0/1024.0)) - 500.0) /10.0;	//Temperatuur berekenen uit ADCValue
- 3c6:	9c 01       	movw	r18, r24
- 3c8:	b9 01       	movw	r22, r18
- 3ca:	88 27       	eor	r24, r24
- 3cc:	77 fd       	sbrc	r23, 7
- 3ce:	80 95       	com	r24
- 3d0:	98 2f       	mov	r25, r24
- 3d2:	0e 94 96 03 	call	0x72c	; 0x72c <__floatsisf>
- 3d6:	20 e0       	ldi	r18, 0x00	; 0
- 3d8:	30 e4       	ldi	r19, 0x40	; 64
- 3da:	4c e9       	ldi	r20, 0x9C	; 156
- 3dc:	50 e4       	ldi	r21, 0x40	; 64
- 3de:	0e 94 4a 04 	call	0x894	; 0x894 <__mulsf3>
- 3e2:	20 e0       	ldi	r18, 0x00	; 0
- 3e4:	30 e0       	ldi	r19, 0x00	; 0
- 3e6:	4a ef       	ldi	r20, 0xFA	; 250
- 3e8:	53 e4       	ldi	r21, 0x43	; 67
- 3ea:	0e 94 97 02 	call	0x52e	; 0x52e <__subsf3>
- 3ee:	20 e0       	ldi	r18, 0x00	; 0
- 3f0:	30 e0       	ldi	r19, 0x00	; 0
- 3f2:	40 e2       	ldi	r20, 0x20	; 32
- 3f4:	51 e4       	ldi	r21, 0x41	; 65
- 3f6:	0e 94 00 03 	call	0x600	; 0x600 <__divsf3>
-	transmit(temperatuur);	//Verstuur de temperatuur via seriele verbinding.
- 3fa:	0e 94 68 03 	call	0x6d0	; 0x6d0 <__fixunssfsi>
- 3fe:	86 2f       	mov	r24, r22
- 400:	0e 94 44 01 	call	0x288	; 0x288 <transmit>
-}
- 404:	08 95       	ret
-
-00000406 <readLDR>:
+000002d8 <readLDR>:
 //lichtsensor
 int readLDR()
 {
 	int ADCvalue;	//int variabele ADCValue aanmaken
 	int LIGHT;	//int variabele LIGHT aanmaken
 	ADCvalue = ADCsingleREAD(1);	//Lees de ADC uit voor pin 1 en sla deze op in ADCValue
- 406:	81 e0       	ldi	r24, 0x01	; 1
- 408:	0e 94 c0 01 	call	0x380	; 0x380 <ADCsingleREAD>
+ 2d8:	81 e0       	ldi	r24, 0x01	; 1
+ 2da:	0e 94 4c 01 	call	0x298	; 0x298 <ADCsingleREAD>
 	}
-	if (ADCvalue > 100)
+	if (ADCvalue > 150)
 	{
 		LIGHT = 1;
 	}
 	transmit(LIGHT);	//Verstuur de status(licht/donker)
- 40c:	21 e0       	ldi	r18, 0x01	; 1
- 40e:	85 36       	cpi	r24, 0x65	; 101
- 410:	91 05       	cpc	r25, r1
- 412:	0c f4       	brge	.+2      	; 0x416 <readLDR+0x10>
- 414:	20 e0       	ldi	r18, 0x00	; 0
- 416:	82 2f       	mov	r24, r18
- 418:	0e 94 44 01 	call	0x288	; 0x288 <transmit>
+ 2de:	21 e0       	ldi	r18, 0x01	; 1
+ 2e0:	87 39       	cpi	r24, 0x97	; 151
+ 2e2:	91 05       	cpc	r25, r1
+ 2e4:	0c f4       	brge	.+2      	; 0x2e8 <readLDR+0x10>
+ 2e6:	20 e0       	ldi	r18, 0x00	; 0
+ 2e8:	82 2f       	mov	r24, r18
+ 2ea:	0e 94 44 01 	call	0x288	; 0x288 <transmit>
 }
+ 2ee:	08 95       	ret
+
+000002f0 <readTemp>:
+}
+//Temp sensor
+int readTemp()
+{
+	int ADCvalue;	//int variabele ADCValue aanmaken
+	ADCvalue = ADCsingleREAD(0);	//Lees de ADC uit voor pin 0 en sla deze op in ADCValue
+ 2f0:	80 e0       	ldi	r24, 0x00	; 0
+ 2f2:	0e 94 4c 01 	call	0x298	; 0x298 <ADCsingleREAD>
+    float temperatuur = 0.00;	//Float variabele aanmaken voor het berekenen van- en opslaan van temperatuur
+	temperatuur = ((ADCvalue * (5000.0/1024.0)) - 500.0) /10.0;	//Temperatuur berekenen uit ADCValue
+ 2f6:	9c 01       	movw	r18, r24
+ 2f8:	b9 01       	movw	r22, r18
+ 2fa:	88 27       	eor	r24, r24
+ 2fc:	77 fd       	sbrc	r23, 7
+ 2fe:	80 95       	com	r24
+ 300:	98 2f       	mov	r25, r24
+ 302:	0e 94 96 03 	call	0x72c	; 0x72c <__floatsisf>
+ 306:	20 e0       	ldi	r18, 0x00	; 0
+ 308:	30 e4       	ldi	r19, 0x40	; 64
+ 30a:	4c e9       	ldi	r20, 0x9C	; 156
+ 30c:	50 e4       	ldi	r21, 0x40	; 64
+ 30e:	0e 94 4a 04 	call	0x894	; 0x894 <__mulsf3>
+ 312:	20 e0       	ldi	r18, 0x00	; 0
+ 314:	30 e0       	ldi	r19, 0x00	; 0
+ 316:	4a ef       	ldi	r20, 0xFA	; 250
+ 318:	53 e4       	ldi	r21, 0x43	; 67
+ 31a:	0e 94 97 02 	call	0x52e	; 0x52e <__subsf3>
+ 31e:	20 e0       	ldi	r18, 0x00	; 0
+ 320:	30 e0       	ldi	r19, 0x00	; 0
+ 322:	40 e2       	ldi	r20, 0x20	; 32
+ 324:	51 e4       	ldi	r21, 0x41	; 65
+ 326:	0e 94 00 03 	call	0x600	; 0x600 <__divsf3>
+	transmit(temperatuur);	//Verstuur de temperatuur via seriele verbinding.
+ 32a:	0e 94 68 03 	call	0x6d0	; 0x6d0 <__fixunssfsi>
+ 32e:	86 2f       	mov	r24, r22
+ 330:	0e 94 44 01 	call	0x288	; 0x288 <transmit>
+}
+ 334:	08 95       	ret
+
+00000336 <SR04Signal>:
+	}
+	transmit(LIGHT);	//Verstuur de status(licht/donker)
+}
+
+//zend sr04 signaal en reken hiermee
+void SR04Signal(){
+ 336:	0f 93       	push	r16
+ 338:	1f 93       	push	r17
+ 33a:	cf 93       	push	r28
+ 33c:	df 93       	push	r29
+
+	float distance = 0.00;
+
+	//echoDone is een boolean die checkt of de echo klaar is
+	//Als de echo pas klaar is mag ermee worden gerekend
+	echoDone = 0;
+ 33e:	10 92 0a 01 	sts	0x010A, r1
+
+	//Timer0 counter wordt gereset
+	countTimer0 = 0;
+ 342:	10 92 06 01 	sts	0x0106, r1
+ 346:	10 92 07 01 	sts	0x0107, r1
+ 34a:	10 92 08 01 	sts	0x0108, r1
+ 34e:	10 92 09 01 	sts	0x0109, r1
+
+
+	//pulse sturen naar de trigger
+	PORTB = 0x00;
+ 352:	15 b8       	out	0x05, r1	; 5
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 354:	8f e3       	ldi	r24, 0x3F	; 63
+ 356:	9f e1       	ldi	r25, 0x1F	; 31
+ 358:	01 97       	sbiw	r24, 0x01	; 1
+ 35a:	f1 f7       	brne	.-4      	; 0x358 <SR04Signal+0x22>
+ 35c:	00 c0       	rjmp	.+0      	; 0x35e <SR04Signal+0x28>
+ 35e:	00 00       	nop
+	_delay_ms(2);
+	PORTB = 0xff;
+ 360:	8f ef       	ldi	r24, 0xFF	; 255
+ 362:	85 b9       	out	0x05, r24	; 5
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 364:	95 e3       	ldi	r25, 0x35	; 53
+ 366:	9a 95       	dec	r25
+ 368:	f1 f7       	brne	.-4      	; 0x366 <SR04Signal+0x30>
+ 36a:	00 00       	nop
+	_delay_us(10);
+	PORTB = 0x00;
+ 36c:	15 b8       	out	0x05, r1	; 5
+
+	//check of echo weer low is
+	while (!echoDone);
+ 36e:	80 91 0a 01 	lds	r24, 0x010A
+ 372:	88 23       	and	r24, r24
+ 374:	e1 f3       	breq	.-8      	; 0x36e <SR04Signal+0x38>
+
+	//berekening afstand
+	distance = countTimer0/16E6;
+ 376:	60 91 06 01 	lds	r22, 0x0106
+ 37a:	70 91 07 01 	lds	r23, 0x0107
+ 37e:	80 91 08 01 	lds	r24, 0x0108
+ 382:	90 91 09 01 	lds	r25, 0x0109
+ 386:	0e 94 94 03 	call	0x728	; 0x728 <__floatunsisf>
+ 38a:	20 e0       	ldi	r18, 0x00	; 0
+ 38c:	34 e2       	ldi	r19, 0x24	; 36
+ 38e:	44 e7       	ldi	r20, 0x74	; 116
+ 390:	5b e4       	ldi	r21, 0x4B	; 75
+ 392:	0e 94 00 03 	call	0x600	; 0x600 <__divsf3>
+	distance = 17013.0*distance;
+ 396:	46 2f       	mov	r20, r22
+ 398:	57 2f       	mov	r21, r23
+ 39a:	68 2f       	mov	r22, r24
+ 39c:	79 2f       	mov	r23, r25
+ 39e:	cb 01       	movw	r24, r22
+ 3a0:	ba 01       	movw	r22, r20
+ 3a2:	20 e0       	ldi	r18, 0x00	; 0
+ 3a4:	3a ee       	ldi	r19, 0xEA	; 234
+ 3a6:	44 e8       	ldi	r20, 0x84	; 132
+ 3a8:	56 e4       	ldi	r21, 0x46	; 70
+ 3aa:	0e 94 4a 04 	call	0x894	; 0x894 <__mulsf3>
+ 3ae:	06 2f       	mov	r16, r22
+ 3b0:	17 2f       	mov	r17, r23
+ 3b2:	d8 2f       	mov	r29, r24
+ 3b4:	c9 2f       	mov	r28, r25
+
+	//verzenden naar serial
+	if(distance <= 4){transmit(4);}
+ 3b6:	86 2f       	mov	r24, r22
+ 3b8:	91 2f       	mov	r25, r17
+ 3ba:	ad 2f       	mov	r26, r29
+ 3bc:	bc 2f       	mov	r27, r28
+ 3be:	bc 01       	movw	r22, r24
+ 3c0:	cd 01       	movw	r24, r26
+ 3c2:	20 e0       	ldi	r18, 0x00	; 0
+ 3c4:	30 e0       	ldi	r19, 0x00	; 0
+ 3c6:	40 e8       	ldi	r20, 0x80	; 128
+ 3c8:	50 e4       	ldi	r21, 0x40	; 64
+ 3ca:	0e 94 fc 02 	call	0x5f8	; 0x5f8 <__cmpsf2>
+ 3ce:	18 16       	cp	r1, r24
+ 3d0:	24 f0       	brlt	.+8      	; 0x3da <SR04Signal+0xa4>
+ 3d2:	84 e0       	ldi	r24, 0x04	; 4
+ 3d4:	0e 94 44 01 	call	0x288	; 0x288 <transmit>
+ 3d8:	1d c0       	rjmp	.+58     	; 0x414 <SR04Signal+0xde>
+	else if(distance > 160){transmit(161);}
+ 3da:	80 2f       	mov	r24, r16
+ 3dc:	91 2f       	mov	r25, r17
+ 3de:	ad 2f       	mov	r26, r29
+ 3e0:	bc 2f       	mov	r27, r28
+ 3e2:	bc 01       	movw	r22, r24
+ 3e4:	cd 01       	movw	r24, r26
+ 3e6:	20 e0       	ldi	r18, 0x00	; 0
+ 3e8:	30 e0       	ldi	r19, 0x00	; 0
+ 3ea:	40 e2       	ldi	r20, 0x20	; 32
+ 3ec:	53 e4       	ldi	r21, 0x43	; 67
+ 3ee:	0e 94 46 04 	call	0x88c	; 0x88c <__gesf2>
+ 3f2:	18 16       	cp	r1, r24
+ 3f4:	24 f4       	brge	.+8      	; 0x3fe <SR04Signal+0xc8>
+ 3f6:	81 ea       	ldi	r24, 0xA1	; 161
+ 3f8:	0e 94 44 01 	call	0x288	; 0x288 <transmit>
+ 3fc:	0b c0       	rjmp	.+22     	; 0x414 <SR04Signal+0xde>
+	else{transmit(distance);}
+ 3fe:	80 2f       	mov	r24, r16
+ 400:	91 2f       	mov	r25, r17
+ 402:	ad 2f       	mov	r26, r29
+ 404:	bc 2f       	mov	r27, r28
+ 406:	bc 01       	movw	r22, r24
+ 408:	cd 01       	movw	r24, r26
+ 40a:	0e 94 68 03 	call	0x6d0	; 0x6d0 <__fixunssfsi>
+ 40e:	86 2f       	mov	r24, r22
+ 410:	0e 94 44 01 	call	0x288	; 0x288 <transmit>
+	
+}
+ 414:	df 91       	pop	r29
+ 416:	cf 91       	pop	r28
+ 418:	1f 91       	pop	r17
+ 41a:	0f 91       	pop	r16
  41c:	08 95       	ret
 
 0000041e <__vector_16>:
-	else{transmit(distance);}
-	
-}
 
 //overflow interrupt op timer 0
 ISR(TIMER0_OVF_vect){
@@ -792,15 +790,15 @@ int main() {
 	SCH_Init_T1();
  510:	0e 94 de 00 	call	0x1bc	; 0x1bc <SCH_Init_T1>
 	//SCH_Add_Task(readTemp,0,300);
-	//SCH_Add_Task(readLDR,100,300);
-	SCH_Add_Task(SR04Signal,0,50);
- 514:	8c e4       	ldi	r24, 0x4C	; 76
+	SCH_Add_Task(readLDR,100,300);
+ 514:	8c e6       	ldi	r24, 0x6C	; 108
  516:	91 e0       	ldi	r25, 0x01	; 1
- 518:	60 e0       	ldi	r22, 0x00	; 0
+ 518:	64 e6       	ldi	r22, 0x64	; 100
  51a:	70 e0       	ldi	r23, 0x00	; 0
- 51c:	42 e3       	ldi	r20, 0x32	; 50
- 51e:	50 e0       	ldi	r21, 0x00	; 0
+ 51c:	4c e2       	ldi	r20, 0x2C	; 44
+ 51e:	51 e0       	ldi	r21, 0x01	; 1
  520:	0e 94 53 00 	call	0xa6	; 0xa6 <SCH_Add_Task>
+	//SCH_Add_Task(SR04Signal,200,300);
 	SCH_Start();
  524:	0e 94 f4 00 	call	0x1e8	; 0x1e8 <SCH_Start>
 

@@ -123,11 +123,11 @@ int readLDR()
 	int ADCvalue;	//int variabele ADCValue aanmaken
 	int LIGHT;	//int variabele LIGHT aanmaken
 	ADCvalue = ADCsingleREAD(1);	//Lees de ADC uit voor pin 1 en sla deze op in ADCValue
-	if (ADCvalue <= 100) //maak booleaanse expressie met licht(1) of donker(0) als uitkomst
+	if (ADCvalue <= 150) //maak booleaanse expressie met licht(1) of donker(0) als uitkomst
 	{
 		LIGHT = 0;	
 	}
-	if (ADCvalue > 100)
+	if (ADCvalue > 150)
 	{
 		LIGHT = 1;
 	}
@@ -230,9 +230,9 @@ int main() {
 
 	//scheduler
 	SCH_Init_T1();
-	SCH_Add_Task(readTemp,0,300);
+	//SCH_Add_Task(readTemp,0,300);
 	SCH_Add_Task(readLDR,100,300);
-	SCH_Add_Task(SR04Signal,200,300);
+	//SCH_Add_Task(SR04Signal,200,300);
 	SCH_Start();
 
 	//run scheduler

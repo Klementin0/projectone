@@ -1,3 +1,24 @@
 Service , Message , Max , Min , Average , Count , frequency , TimedOut
 
-Stream,setLogBits,0,0,0,1,0
+Stream,setLogBits,15.6201,15.6201,15.6201,1,0
+Tool,setupTool,136.1043,136.1043,136.1043,1,0
+Tool,getContext,49.8671,1.9946,25.93085,2,0
+Tool,connect,1.9933,1.9933,1.9933,1,0
+Tool,setProperties,85.3778,85.3778,85.3778,1,0
+Device,getContext,2.0026,2.0026,2.0026,1,0
+Processes,launch,91.7759,91.7759,91.7759,1,0
+Processes,getContext,11.6448,11.6448,11.6448,1,0
+RunControl,getContext,6.9811,6.9811,6.9811,1,0
+Memory,getChildren,6.7381,6.7381,6.7381,1,0
+RunControl,setProperties,5.991,5.991,5.991,1,0
+Memory,getContext,7.3507,5.9835,1.21355208333333,7,0
+RunControl,resume,4.9902,4.9868,4.9885,2,0
+Trace,getChildren,7.9778,7.9778,7.9778,1,0
+Trace,getContext,3.9879,3.9879,3.9879,1,0
+StackTrace,getChildren,4.9901,3.2784,4.13425,2,0
+Expressions,compute,10.9704,2.9909,1.21264016369048,8,0
+Expressions,dispose,58.8443,1.9942,3.5836625,5,0
+LineNumbers,mapToSource,5.9812,3.9717,2.98526666666667,3,0
+Memory,get,3.3243,1.5555,0.436456111111111,6,0
+Processes,terminate,2.9931,2.9931,2.9931,1,0
+Tool,tearDownTool,1.9937,1.9937,1.9937,1,0
