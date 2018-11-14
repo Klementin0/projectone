@@ -10,7 +10,7 @@ def SendDataCommand():
     serialPort.Stuur("Basic Send")
 
 def Verbinden():
-    serialPort.Open("COM4",19200)
+    serialPort.Open("COM3",19200)
     serialPort.Lees()
 
 def InsertText():
@@ -34,26 +34,21 @@ def AfstandPull():
         print("Aan het rollen")
         #functie voor groene lichten uit, geel licht aan
 
-def LichtPull():
-    lis = serialPort.Return_lis()
-    Lichtlis = lis[1::3]
-    #kevins check op 3 minuten licht of niet
-    #check of variabele licht aan of uit is voor 3 minuten
-    Licht = 0
-    if(Licht == 0):
-        print("Het is donker")
-    elif(Licht == 1):
-        print("Het is licht")
-    else:
-        print("Ik kijk niet meer naar het licht")
-
 def LichtDonker():
-    sum = 0
-    for i in lis:
-        sum += i
-
-    avg = sum / 60
-    return(avg)
+    light = serialPort.Return_light()
+    if (len(light) >= 60):
+        light = light[-60:]
+        sum = 0
+        for i in light:
+            sum += i
+        if sum >= 50:
+            return 2 #uitrollen als niet uitgerold!
+        elif sum <= 10:
+            return 1 #inrollen als niet ingerold!
+        else:
+            return 0 #doe niks
+    else:
+        return 0 #doe niks als er nog geen 3 min aan waarden is!
 
 app = QApplication([])
 window = QWidget()
@@ -70,7 +65,7 @@ stuur_data_button.clicked.connect(lambda: SendDataCommand())
 
 list_print_buttn = QPushButton('list')
 layout.addWidget(list_print_buttn)
-list_print_buttn.clicked.connect(lambda: printlist())
+list_print_buttn.clicked.connect(lambda: LichtDonker())
 
 instert_text = QPushButton('add')
 layout.addWidget(instert_text)
