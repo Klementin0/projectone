@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
 
         #main venster
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(500, 150)
+        MainWindow.resize(500, 160)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
@@ -110,8 +110,8 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop verbinden_action wordt ingedrukt
     def verbinden_action(self):
-        #print("verbinden")
-        serialPort.Open("COM3", 19200)
+        serialPort.Open("COM4", 19200)
+        serialPort.Lees()
 
     # actie wanneer de knop verbinding_verbreken_action wordt ingedrukt
     def verbinding_verbreken_action(self):
@@ -121,8 +121,16 @@ class Ui_MainWindow(object):
 
     # status updaten
     def status_update_action(self):
-        print("update status")
+        _vertalen = QtCore.QCoreApplication.translate
+        temp = serialPort.Return_temp()
 
+        if not temp:
+            lasttemp = "-"
+        else:
+            lasttemp = temp[-1:]
+            lasttemp = lasttemp[0]
+
+        self.status_label.setText(_vertalen("MainWindow", " "+str(lasttemp)+" ℃ / Uitgerold"))
 
     #namen definiëren
     def vertalen(self, MainWindow):
@@ -137,7 +145,7 @@ class Ui_MainWindow(object):
         self.verbinden.setText(_vertalen("MainWindow", "Verbinden"))
         self.verbinding_verbreken.setText(_vertalen("MainWindow", "Verbinding verbreken"))
         self.status_update.setText(_vertalen("MainWindow", "Status updaten"))
-        self.status_label.setText(_vertalen("MainWindow", "27 ℃ / Uigerold"))
+
 
 
 
