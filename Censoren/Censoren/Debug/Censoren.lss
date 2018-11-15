@@ -15,17 +15,17 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   5 .debug_aranges 000000a0  00000000  00000000  00003e00  2**3
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000c37  00000000  00000000  00003ea0  2**0
+  6 .debug_info   00000c38  00000000  00000000  00003ea0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000404  00000000  00000000  00004ad7  2**0
+  7 .debug_abbrev 000003f5  00000000  00000000  00004ad8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000005a7  00000000  00000000  00004edb  2**0
+  8 .debug_line   000005ab  00000000  00000000  00004ecd  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000002a4  00000000  00000000  00005484  2**2
+  9 .debug_frame  000002a4  00000000  00000000  00005478  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000030d  00000000  00000000  00005728  2**0
+ 10 .debug_str    0000036a  00000000  00000000  0000571c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000079e  00000000  00000000  00005a35  2**0
+ 11 .debug_loc    0000079e  00000000  00000000  00005a86  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -99,12 +99,6 @@ Disassembly of section .text:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 000000a6 <SCH_Add_Task>:
-  Task will be first executed at T = 300 ticks, then 1300, 2300, etc.            
- 
--*------------------------------------------------------------------*/
-
-unsigned char SCH_Add_Task(void (*pFunction)(), const unsigned int DELAY, const unsigned int PERIOD)
-{
   a6:	0f 93       	push	r16
   a8:	1f 93       	push	r17
   aa:	cf 93       	push	r28
@@ -112,10 +106,6 @@ unsigned char SCH_Add_Task(void (*pFunction)(), const unsigned int DELAY, const 
   ae:	dc 01       	movw	r26, r24
   b0:	8b 01       	movw	r16, r22
   b2:	ea 01       	movw	r28, r20
-   unsigned char Index = 0;
-
-   // First find a gap in the array (if there is one)
-   while((SCH_tasks_G[Index].pTask != 0) && (Index < SCH_MAX_TASKS))
   b4:	80 91 10 01 	lds	r24, 0x0110
   b8:	90 91 11 01 	lds	r25, 0x0111
   bc:	00 97       	sbiw	r24, 0x00	; 0
@@ -124,15 +114,7 @@ unsigned char SCH_Add_Task(void (*pFunction)(), const unsigned int DELAY, const 
   c2:	f1 e0       	ldi	r31, 0x01	; 1
   c4:	21 e0       	ldi	r18, 0x01	; 1
   c6:	30 e0       	ldi	r19, 0x00	; 0
-   {
-      Index++;
   c8:	42 2f       	mov	r20, r18
-unsigned char SCH_Add_Task(void (*pFunction)(), const unsigned int DELAY, const unsigned int PERIOD)
-{
-   unsigned char Index = 0;
-
-   // First find a gap in the array (if there is one)
-   while((SCH_tasks_G[Index].pTask != 0) && (Index < SCH_MAX_TASKS))
   ca:	b9 01       	movw	r22, r18
   cc:	80 81       	ld	r24, Z
   ce:	91 81       	ldd	r25, Z+1	; 0x01
@@ -144,39 +126,15 @@ unsigned char SCH_Add_Task(void (*pFunction)(), const unsigned int DELAY, const 
   da:	2a 30       	cpi	r18, 0x0A	; 10
   dc:	31 05       	cpc	r19, r1
   de:	a1 f7       	brne	.-24     	; 0xc8 <SCH_Add_Task+0x22>
-   {
-      Index++;
   e0:	84 2f       	mov	r24, r20
   e2:	01 c0       	rjmp	.+2      	; 0xe6 <SCH_Add_Task+0x40>
   e4:	82 2f       	mov	r24, r18
-   }
-
-   // Have we reached the end of the list?   
-   if(Index == SCH_MAX_TASKS)
   e6:	89 30       	cpi	r24, 0x09	; 9
   e8:	21 f4       	brne	.+8      	; 0xf2 <SCH_Add_Task+0x4c>
   ea:	17 c0       	rjmp	.+46     	; 0x11a <SCH_Add_Task+0x74>
-unsigned char SCH_Add_Task(void (*pFunction)(), const unsigned int DELAY, const unsigned int PERIOD)
-{
-   unsigned char Index = 0;
-
-   // First find a gap in the array (if there is one)
-   while((SCH_tasks_G[Index].pTask != 0) && (Index < SCH_MAX_TASKS))
   ec:	60 e0       	ldi	r22, 0x00	; 0
   ee:	70 e0       	ldi	r23, 0x00	; 0
- 
--*------------------------------------------------------------------*/
-
-unsigned char SCH_Add_Task(void (*pFunction)(), const unsigned int DELAY, const unsigned int PERIOD)
-{
-   unsigned char Index = 0;
   f0:	40 e0       	ldi	r20, 0x00	; 0
-      // Task list is full, return an error code
-      return SCH_MAX_TASKS;  
-   }
-
-   // If we're here, there is a space in the task array
-   SCH_tasks_G[Index].pTask = pFunction;
   f2:	cb 01       	movw	r24, r22
   f4:	88 0f       	add	r24, r24
   f6:	99 1f       	adc	r25, r25
@@ -191,19 +149,12 @@ unsigned char SCH_Add_Task(void (*pFunction)(), const unsigned int DELAY, const 
  108:	fe 4f       	sbci	r31, 0xFE	; 254
  10a:	b1 83       	std	Z+1, r27	; 0x01
  10c:	a0 83       	st	Z, r26
-   SCH_tasks_G[Index].Delay =DELAY;
  10e:	13 83       	std	Z+3, r17	; 0x03
  110:	02 83       	std	Z+2, r16	; 0x02
-   SCH_tasks_G[Index].Period = PERIOD;
  112:	d5 83       	std	Z+5, r29	; 0x05
  114:	c4 83       	std	Z+4, r28	; 0x04
-   SCH_tasks_G[Index].RunMe = 0;
  116:	16 82       	std	Z+6, r1	; 0x06
-
-   // return position of task (to allow later deletion)
-   return Index;
  118:	84 2f       	mov	r24, r20
-}
  11a:	df 91       	pop	r29
  11c:	cf 91       	pop	r28
  11e:	1f 91       	pop	r17
@@ -211,12 +162,6 @@ unsigned char SCH_Add_Task(void (*pFunction)(), const unsigned int DELAY, const 
  122:	08 95       	ret
 
 00000124 <SCH_Delete_Task>:
-unsigned char SCH_Delete_Task(const unsigned char TASK_INDEX)
-{
-   // Return_code can be used for error reporting, NOT USED HERE THOUGH!
-   unsigned char Return_code = 0;
-
-   SCH_tasks_G[TASK_INDEX].pTask = 0;
  124:	90 e0       	ldi	r25, 0x00	; 0
  126:	fc 01       	movw	r30, r24
  128:	ee 0f       	add	r30, r30
@@ -231,27 +176,15 @@ unsigned char SCH_Delete_Task(const unsigned char TASK_INDEX)
  13a:	fe 4f       	sbci	r31, 0xFE	; 254
  13c:	11 82       	std	Z+1, r1	; 0x01
  13e:	10 82       	st	Z, r1
-   SCH_tasks_G[TASK_INDEX].Delay = 0;
  140:	13 82       	std	Z+3, r1	; 0x03
  142:	12 82       	std	Z+2, r1	; 0x02
-   SCH_tasks_G[TASK_INDEX].Period = 0;
  144:	15 82       	std	Z+5, r1	; 0x05
  146:	14 82       	std	Z+4, r1	; 0x04
-   SCH_tasks_G[TASK_INDEX].RunMe = 0;
  148:	16 82       	std	Z+6, r1	; 0x06
-
-   return Return_code;
-}
  14a:	80 e0       	ldi	r24, 0x00	; 0
  14c:	08 95       	ret
 
 0000014e <SCH_Dispatch_Tasks>:
-  This function must be called (repeatedly) from the main loop.
-
--*----------------- -------------------------------------------------*/
-
-void SCH_Dispatch_Tasks(void)
-{
  14e:	cf 92       	push	r12
  150:	df 92       	push	r13
  152:	ef 92       	push	r14
@@ -259,10 +192,6 @@ void SCH_Dispatch_Tasks(void)
  156:	1f 93       	push	r17
  158:	cf 93       	push	r28
  15a:	df 93       	push	r29
-   unsigned char Index;
-
-   // Dispatches (runs) the next task (if one is ready)
-   for(Index = 0; Index < SCH_MAX_TASKS; Index++)
  15c:	c6 e1       	ldi	r28, 0x16	; 22
  15e:	d1 e0       	ldi	r29, 0x01	; 1
  160:	0f 2e       	mov	r0, r31
@@ -274,8 +203,6 @@ void SCH_Dispatch_Tasks(void)
  16c:	ec 0e       	add	r14, r28
  16e:	fd 1e       	adc	r15, r29
  170:	10 e0       	ldi	r17, 0x00	; 0
-   {
-      if((SCH_tasks_G[Index].RunMe > 0) && (SCH_tasks_G[Index].pTask != 0))
  172:	88 81       	ld	r24, Y
  174:	88 23       	and	r24, r24
  176:	91 f0       	breq	.+36     	; 0x19c <SCH_Dispatch_Tasks+0x4e>
@@ -285,32 +212,17 @@ void SCH_Dispatch_Tasks(void)
  17e:	11 97       	sbiw	r26, 0x01	; 1
  180:	30 97       	sbiw	r30, 0x00	; 0
  182:	61 f0       	breq	.+24     	; 0x19c <SCH_Dispatch_Tasks+0x4e>
-      {
-         (*SCH_tasks_G[Index].pTask)();  // Run the task
  184:	09 95       	icall
-         SCH_tasks_G[Index].RunMe -= 1;   // Reset / reduce RunMe flag
  186:	88 81       	ld	r24, Y
  188:	81 50       	subi	r24, 0x01	; 1
  18a:	88 83       	st	Y, r24
-
-         // Periodic tasks will automatically run again
-         // - if this is a 'one shot' task, remove it from the array
-         if(SCH_tasks_G[Index].Period == 0)
  18c:	f7 01       	movw	r30, r14
  18e:	84 81       	ldd	r24, Z+4	; 0x04
  190:	95 81       	ldd	r25, Z+5	; 0x05
  192:	00 97       	sbiw	r24, 0x00	; 0
  194:	19 f4       	brne	.+6      	; 0x19c <SCH_Dispatch_Tasks+0x4e>
-         {
-            SCH_Delete_Task(Index);
  196:	81 2f       	mov	r24, r17
  198:	0e 94 92 00 	call	0x124	; 0x124 <SCH_Delete_Task>
-void SCH_Dispatch_Tasks(void)
-{
-   unsigned char Index;
-
-   // Dispatches (runs) the next task (if one is ready)
-   for(Index = 0; Index < SCH_MAX_TASKS; Index++)
  19c:	1f 5f       	subi	r17, 0xFF	; 255
  19e:	27 96       	adiw	r28, 0x07	; 7
  1a0:	87 e0       	ldi	r24, 0x07	; 7
@@ -319,12 +231,6 @@ void SCH_Dispatch_Tasks(void)
  1a6:	f9 1e       	adc	r15, r25
  1a8:	19 30       	cpi	r17, 0x09	; 9
  1aa:	19 f7       	brne	.-58     	; 0x172 <SCH_Dispatch_Tasks+0x24>
-         {
-            SCH_Delete_Task(Index);
-         }
-      }
-   }
-}
  1ac:	df 91       	pop	r29
  1ae:	cf 91       	pop	r28
  1b0:	1f 91       	pop	r17
@@ -335,68 +241,29 @@ void SCH_Dispatch_Tasks(void)
  1ba:	08 95       	ret
 
 000001bc <SCH_Init_T1>:
-  You must call this function before using the scheduler.  
-
--*------------------------------------------------------------------*/
-
-void SCH_Init_T1(void)
-{
  1bc:	cf 93       	push	r28
-   unsigned char i;
-
-   for(i = 0; i < SCH_MAX_TASKS; i++)
  1be:	c0 e0       	ldi	r28, 0x00	; 0
-   {
-      SCH_Delete_Task(i);
  1c0:	8c 2f       	mov	r24, r28
  1c2:	0e 94 92 00 	call	0x124	; 0x124 <SCH_Delete_Task>
-
-void SCH_Init_T1(void)
-{
-   unsigned char i;
-
-   for(i = 0; i < SCH_MAX_TASKS; i++)
  1c6:	cf 5f       	subi	r28, 0xFF	; 255
  1c8:	c9 30       	cpi	r28, 0x09	; 9
  1ca:	d1 f7       	brne	.-12     	; 0x1c0 <SCH_Init_T1+0x4>
-
-   // Set up Timer 1
-   // Values for 1ms and 10ms ticks are provided for various crystals
-
-   // Hier moet de timer periode worden aangepast ....!
-   OCR1A = (uint16_t)625;   		     // 10ms = (256/16.000.000) * 625
  1cc:	81 e7       	ldi	r24, 0x71	; 113
  1ce:	92 e0       	ldi	r25, 0x02	; 2
  1d0:	90 93 89 00 	sts	0x0089, r25
  1d4:	80 93 88 00 	sts	0x0088, r24
-   TCCR1B = (1 << CS12) | (1 << WGM12);  // prescale op 64, top counter = value OCR1A (CTC mode)
  1d8:	8c e0       	ldi	r24, 0x0C	; 12
  1da:	80 93 81 00 	sts	0x0081, r24
-   TIMSK1 = 1 << OCIE1A;   		     // Timer 1 Output Compare A Match Interrupt Enable
  1de:	82 e0       	ldi	r24, 0x02	; 2
  1e0:	80 93 6f 00 	sts	0x006F, r24
-}
  1e4:	cf 91       	pop	r28
  1e6:	08 95       	ret
 
 000001e8 <SCH_Start>:
- 
--*------------------------------------------------------------------*/
-
-void SCH_Start(void)
-{
-      sei();
  1e8:	78 94       	sei
-}
  1ea:	08 95       	ret
 
 000001ec <__vector_11>:
-  determined by the timer settings in SCH_Init_T1().
-
--*------------------------------------------------------------------*/
-
-ISR(TIMER1_COMPA_vect)
-{
  1ec:	1f 92       	push	r1
  1ee:	0f 92       	push	r0
  1f0:	0f b6       	in	r0, 0x3f	; 63
@@ -416,77 +283,36 @@ ISR(TIMER1_COMPA_vect)
  20c:	f1 e0       	ldi	r31, 0x01	; 1
  20e:	df 01       	movw	r26, r30
  210:	16 96       	adiw	r26, 0x06	; 6
-  This is the scheduler ISR.  It is called at a rate 
-  determined by the timer settings in SCH_Init_T1().
-
--*------------------------------------------------------------------*/
-
-ISR(TIMER1_COMPA_vect)
  212:	9f 01       	movw	r18, r30
  214:	21 5c       	subi	r18, 0xC1	; 193
  216:	3f 4f       	sbci	r19, 0xFF	; 255
-{
-   unsigned char Index;
-   for(Index = 0; Index < SCH_MAX_TASKS; Index++)
-   {
-      // Check if there is a task at this location
-      if(SCH_tasks_G[Index].pTask)
  218:	80 81       	ld	r24, Z
  21a:	91 81       	ldd	r25, Z+1	; 0x01
  21c:	00 97       	sbiw	r24, 0x00	; 0
  21e:	91 f0       	breq	.+36     	; 0x244 <__vector_11+0x58>
-      {
-         if(SCH_tasks_G[Index].Delay == 0)
  220:	82 81       	ldd	r24, Z+2	; 0x02
  222:	93 81       	ldd	r25, Z+3	; 0x03
  224:	00 97       	sbiw	r24, 0x00	; 0
  226:	59 f4       	brne	.+22     	; 0x23e <__vector_11+0x52>
-         {
-            // The task is due to run, Inc. the 'RunMe' flag
-            SCH_tasks_G[Index].RunMe += 1;
  228:	8c 91       	ld	r24, X
  22a:	8f 5f       	subi	r24, 0xFF	; 255
  22c:	8c 93       	st	X, r24
-
-            if(SCH_tasks_G[Index].Period)
  22e:	84 81       	ldd	r24, Z+4	; 0x04
  230:	95 81       	ldd	r25, Z+5	; 0x05
  232:	00 97       	sbiw	r24, 0x00	; 0
  234:	39 f0       	breq	.+14     	; 0x244 <__vector_11+0x58>
-            {
-               // Schedule periodic tasks to run again
-               SCH_tasks_G[Index].Delay = SCH_tasks_G[Index].Period;
-               SCH_tasks_G[Index].Delay -= 1;
  236:	01 97       	sbiw	r24, 0x01	; 1
  238:	93 83       	std	Z+3, r25	; 0x03
  23a:	82 83       	std	Z+2, r24	; 0x02
  23c:	03 c0       	rjmp	.+6      	; 0x244 <__vector_11+0x58>
-            }
-         }
-         else
-         {
-            // Not yet ready to run: just decrement the delay
-            SCH_tasks_G[Index].Delay -= 1;
  23e:	01 97       	sbiw	r24, 0x01	; 1
  240:	93 83       	std	Z+3, r25	; 0x03
  242:	82 83       	std	Z+2, r24	; 0x02
  244:	37 96       	adiw	r30, 0x07	; 7
  246:	17 96       	adiw	r26, 0x07	; 7
--*------------------------------------------------------------------*/
-
-ISR(TIMER1_COMPA_vect)
-{
-   unsigned char Index;
-   for(Index = 0; Index < SCH_MAX_TASKS; Index++)
  248:	e2 17       	cp	r30, r18
  24a:	f3 07       	cpc	r31, r19
  24c:	29 f7       	brne	.-54     	; 0x218 <__vector_11+0x2c>
-            // Not yet ready to run: just decrement the delay
-            SCH_tasks_G[Index].Delay -= 1;
-         }
-      }
-   }
-}
  24e:	ff 91       	pop	r31
  250:	ef 91       	pop	r30
  252:	df 91       	pop	r29
@@ -948,6 +774,8 @@ unsigned char receive(void)
 
 000004fc <message_incoming>:
 
+
+//check op inkomende rx
 int message_incoming(void)
 {
 	if((UCSR0A & (1<<RXC0))){
@@ -969,6 +797,7 @@ int message_incoming(void)
 
 00000512 <input_handler>:
 
+//roept recieve aan en werkt met wat is opgestuurd
 void input_handler(){
 	input = 0;
  512:	10 92 4f 01 	sts	0x014F, r1
@@ -979,6 +808,9 @@ void input_handler(){
  51e:	4c c0       	rjmp	.+152    	; 0x5b8 <input_handler+0xa6>
 		input = receive();
  520:	0e 94 76 02 	call	0x4ec	; 0x4ec <receive>
+		
+		//hieronder alle python knoppen die werken met deze c code
+		
 		//Automodus veranderen
 		if (input = 49){
  524:	81 e3       	ldi	r24, 0x31	; 49
@@ -1010,6 +842,7 @@ void input_handler(){
  54c:	81 e0       	ldi	r24, 0x01	; 1
  54e:	80 93 04 01 	sts	0x0104, r24
 		}
+		
 		//afstand instellen
 		if (input = 50)
 		{
