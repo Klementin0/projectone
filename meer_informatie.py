@@ -8,7 +8,7 @@ def maak_grafiek(temp,licht,afstand):
     xass_temp = []
     tijd = 1
     for i in range(len(temp)):
-        xass_temp.append(i * tijd)g
+        xass_temp.append(i * tijd)
 
     xass_licht = []
     for i in range(len(licht)):

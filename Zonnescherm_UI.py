@@ -117,12 +117,9 @@ class Ui_MainWindow(object):
 
     #minimale_stand -5 maken.
     def minimale_stand_action_min(self):
-<<<<<<< HEAD
-
         if self.stand_min > 9:
             self.stand_min = self.stand_min - 5
             serialPort.Stuur(5)
-=======
         minvalue = serialPort.Return_min()
         if minvalue > 9:
             minvalue = minvalue - 5
@@ -130,7 +127,6 @@ class Ui_MainWindow(object):
             minvalue = str(minvalue)
             serialPort.Stuur("5")
             self.minimale_stand.setText(minvalue)
->>>>>>> 7c8e6998388aa4da755a34617f3508ae841decfb
         else:
             print("Minimale stand is nu 5, deze kan niet kleiner worden gemaakt.")
 
@@ -190,7 +186,7 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop verbinden_action wordt ingedrukt
     def verbinden_action(self):
-        serialPort.Open("COM13", 19200)
+        serialPort.Open("COM3", 19200)
         serialPort.Lees()
         serialPort.Stuur("8")
 
