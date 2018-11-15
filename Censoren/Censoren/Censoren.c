@@ -298,13 +298,13 @@ void autoMode()
 void rollOut()
 {
 	uint8_t status = PORTD;
-	if (status &= 0b00100100)
+	if (status == 0b00100100)
 	{
 		PORTD = 0b00101000;
 		_delay_ms(3000);
 		PORTD = 0b00110000;
 	}
-	else if (status &= 0b00000100)
+	else if (status == 0b00000100)
 	{
 		PORTD = 0b00001000;
 		_delay_ms(3000);
@@ -315,13 +315,13 @@ void rollOut()
 void rollIn()
 {
 	uint8_t status = PORTD;
-	if (status &= 0b00110000)
+	if (status == 0b00110000)
 	{
 		PORTD = 0b00101000;
 		_delay_ms(3000);
 		PORTD = 0b00100100;
 	}
-	else if (status &= 0b00010000)
+	else if (status == 0b00010000)
 	{
 		PORTD = 0b00001000;
 		_delay_ms(3000);
