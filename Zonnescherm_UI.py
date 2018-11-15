@@ -165,12 +165,11 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop inrollen_action wordt ingedrukt
     def inrollen_action(self):
-        print("Inrollen")
+        serialPort.Stuur("6")
 
     # actie wanneer de knop uitrollen_action wordt ingedrukt
     def uitrollen_action(self):
-        print("Uitrollen")
-        serialPort.Stuur("Basic Send")
+        serialPort.Stuur("7")
 
     # actie wanneer de knop meer_informatie_action wordt ingedrukt
     def meer_informatie_action(self):
@@ -184,7 +183,11 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop verbinden_action wordt ingedrukt
     def verbinden_action(self):
+<<<<<<< HEAD
         serialPort.Open("COM13", 19200)
+=======
+        serialPort.Open("COM3", 19200)
+>>>>>>> abb8c15408b1a0645223c84e6b09dd2940be420f
         serialPort.Lees()
         serialPort.Stuur("8")
 
