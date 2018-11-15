@@ -154,12 +154,10 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop inrollen_action wordt ingedrukt
     def inrollen_action(self):
-        print("Inrollen")
         serialPort.Stuur("6")
 
     # actie wanneer de knop uitrollen_action wordt ingedrukt
     def uitrollen_action(self):
-        print("Uitrollen")
         serialPort.Stuur("7")
 
     # actie wanneer de knop meer_informatie_action wordt ingedrukt

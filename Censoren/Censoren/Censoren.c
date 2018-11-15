@@ -126,9 +126,7 @@ void input_handler(){
 	input = 0;
 	if(message_incoming()){
 		input = receive();
-		
 		//hieronder alle python knoppen die werken met deze c code
-		
 		//Automodus veranderen
 		if (input = 49){
 			if(mode == 0){
@@ -142,23 +140,21 @@ void input_handler(){
 			}
 			else{mode = 1;}
 		}
-		
-		//afstand instellen
-		if (input = 50)
+		else if (input == 50)	//afstand instellen
 		{
 			if(maxAfstand < 156)
 			{
 				maxAfstand += 5;
 			}			
 		}
-		if (input = 51)
+		else if (input == 51)
 		{
 			if(maxAfstand > 136){
 				maxAfstand -= 5;
 			}				
 					
 		}
-		if (input = 52)
+		else if (input == 52)
 		{	
 			if (minAfstand < 36)
 			{
@@ -166,7 +162,7 @@ void input_handler(){
 			}
 						
 		}		
-		if (input = 53)
+		else if (input == 53)
 		{
 			if (minAfstand > 9)
 			{
@@ -174,22 +170,21 @@ void input_handler(){
 			}			
 		}
 		//Handmatig in/uitrollen, kan alleen als automatisch uitstaat		
-		if (input = 54)
+		else if (input == 54)
 		{
-			if (PORTD == 0b00010000)
+			if (mode == 0)
 			{
 				rollIn();
 			}		
 		}
-		if (input = 55)
+		else if (input == 55)
 		{
-			if (PORTD == 0b00000100)
+			if (mode == 0)
 			{
 				rollOut();
 			}			
 		}
 	}
-
 }
 
 //AnalogRead
