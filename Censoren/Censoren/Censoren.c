@@ -8,6 +8,12 @@ als dit verkeerd wordt opgezet kunnen waardes afwijken
 Omdat temp het meest precies wordt gemeten en licht nog anders reageert op kiezen we
 voor deze opzet. Het maken en meten van de afstandssignalen hebben hier geen last van
 
+UART_init en Transmit van Blackboard
+Recieve function(s), inclusief input lezen veel hulp gekregen door Arnold buining
+Alle if statements onder de input horen hier niet bij
+Scheduler van Blackboard
+\/ meer over ADC bronnen
+
 -------------------------------------------------------------------------------------
 
 ldr & temp36
@@ -104,6 +110,8 @@ unsigned char receive(void)
 	return UDR0;
 }
 
+
+//check op inkomende rx
 int message_incoming(void)
 {
 	if((UCSR0A & (1<<RXC0))){
@@ -113,10 +121,14 @@ int message_incoming(void)
 	}
 }
 
+//roept recieve aan en werkt met wat is opgestuurd
 void input_handler(){
 	input = 0;
 	if(message_incoming()){
 		input = receive();
+		
+		//hieronder alle python knoppen die werken met deze c code
+		
 		//Automodus veranderen
 		if (input = 49){
 			if(mode == 0){
@@ -130,6 +142,7 @@ void input_handler(){
 			}
 			else{mode = 1;}
 		}
+		
 		//afstand instellen
 		if (input = 50)
 		{
@@ -159,8 +172,22 @@ void input_handler(){
 			{
 			minAfstand -= 5;
 			}			
-		}		
-		
+		}
+		//Handmatig in/uitrollen, kan alleen als automatisch uitstaat		
+		if (input = 54)
+		{
+			if (PORTD == 0b00010000)
+			{
+				rollIn();
+			}		
+		}
+		if (input = 55)
+		{
+			if (PORTD == 0b00000100)
+			{
+				rollOut();
+			}			
+		}
 	}
 
 }

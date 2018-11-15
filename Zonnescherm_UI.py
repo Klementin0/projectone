@@ -28,7 +28,7 @@ class Ui_MainWindow(object):
         self.minimale_stand_kleiner = QtWidgets.QPushButton(self.centralwidget)
         self.minimale_stand_kleiner.setGeometry(QtCore.QRect(250, 10, 20, 30))
         self.minimale_stand_kleiner.setObjectName("minimale_stand_kleiner")
-        self.minimale_stand_kleiner.clicked.connect(self.maximale_stand_action)
+        self.minimale_stand_kleiner.clicked.connect(self.minimale_stand_action_min)
 
         #button minimale stand
         self.minimale_stand = QtWidgets.QLabel(self.centralwidget)
@@ -39,7 +39,7 @@ class Ui_MainWindow(object):
         self.minimale_stand_groter = QtWidgets.QPushButton(self.centralwidget)
         self.minimale_stand_groter.setGeometry(QtCore.QRect(330, 10, 20, 30))
         self.minimale_stand_groter.setObjectName("minimale_stand_groter")
-        self.minimale_stand_groter.clicked.connect(self.maximale_stand_action)
+        self.minimale_stand_groter.clicked.connect(self.minimale_stand_action_plus)
 
 
 
@@ -47,7 +47,7 @@ class Ui_MainWindow(object):
         self.maximale_stand_kleiner = QtWidgets.QPushButton(self.centralwidget)
         self.maximale_stand_kleiner.setGeometry(QtCore.QRect(350, 10, 20, 30))
         self.maximale_stand_kleiner.setObjectName("maximale_stand_kleiner")
-        self.maximale_stand_kleiner.clicked.connect(self.maximale_stand_action)
+        self.maximale_stand_kleiner.clicked.connect(self.maximale_stand_action_min)
 
         self.maximale_stand = QtWidgets.QLabel(self.centralwidget)
         self.maximale_stand.setGeometry(QtCore.QRect(390, 10, 60, 30))
@@ -56,9 +56,7 @@ class Ui_MainWindow(object):
         self.maximale_stand_groter = QtWidgets.QPushButton(self.centralwidget)
         self.maximale_stand_groter.setGeometry(QtCore.QRect(430, 10, 20, 30))
         self.maximale_stand_groter.setObjectName("maximale_stand_groter")
-        self.maximale_stand_groter.clicked.connect(self.maximale_stand_action)
-
-
+        self.maximale_stand_groter.clicked.connect(self.maximale_stand_action_plus)
 
 
         #button inrollen
@@ -120,23 +118,39 @@ class Ui_MainWindow(object):
 
 
 
-    #actie wanneer de knop minimale_stand_action wordt ingedrukt
-    def minimale_stand_action(self):
+    #minimale_stand -5 maken.
+    def minimale_stand_action_min(self):
 
-        if self.stand > 11:
-            self.stand = self.stand - 5
+        if self.stand_min > 9:
+            self.stand_min = self.stand_min - 5
+            serialPort.Stuur("5")
+        else:
+            print("Minimale stand van 5 is bereikt, kan niet kleiner worden gemaakt.")
+
+    #minimale_stand +5 maken.
+    def minimale_stand_action_plus(self):
+
+        if self.stand_min < 36:
+            self.stand_min = self.stand_min + 5
             serialPort.Stuur("4")
         else:
-            print("Dit is de minimale stand mogol")
+            print("Minimale stand is nu 40, deze kan niet groter worden gemaakt.")
 
+    #maximale_stand -5 maken.
+    def maximale_stand_action_min(self):
+        if self.stand_max > 139:
+            self.stand_max = self.stand_max + 5
+            serialPort.Stuur("3")
+        else:
+            print("Maximale stand van 140 is bereikt, kan niet kleiner worden gemaakt.")
 
-    # actie wanneer de knop maximale_stand_action wordt ingedrukt
-    def maximale_stand_action(self):
-        if self.stand < 155:
-            self.stand = self.stand + 5
+    #maximale_stand +5 maken.
+    def maximale_stand_action_plus(self):
+        if self.stand_max < 156:
+            self.stand_max = self.stand_max + 5
             serialPort.Stuur("2")
         else:
-            print("Dit is de maximale stand mogol")
+            print("Maximale stand van 160 is bereikt, kan niet groter worden gemaakt.")
 
     # actie wanneer de knop inrollen_action wordt ingedrukt
     def inrollen_action(self):
@@ -160,7 +174,7 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop verbinden_action wordt ingedrukt
     def verbinden_action(self):
-        serialPort.Open("COM4", 19200)
+        serialPort.Open("COM3", 19200)
         serialPort.Lees()
 
     # actie wanneer de knop verbinding_verbreken_action wordt ingedrukt
