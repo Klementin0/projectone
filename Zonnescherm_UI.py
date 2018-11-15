@@ -23,11 +23,25 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
+
+
+        self.minimale_stand_kleiner = QtWidgets.QPushButton(self.centralwidget)
+        self.minimale_stand_kleiner.setGeometry(QtCore.QRect(250, 10, 20, 30))
+        self.minimale_stand_kleiner.setObjectName("minimale_stand_kleiner")
+        self.minimale_stand_kleiner.clicked.connect(self.maximale_stand_action)
+
         #button minimale stand
-        self.minimale_stand = QtWidgets.QPushButton(self.centralwidget)
-        self.minimale_stand.setGeometry(QtCore.QRect(250, 10, 100, 30))
+        self.minimale_stand = QtWidgets.QLabel(self.centralwidget)
+        self.minimale_stand.setGeometry(QtCore.QRect(290, 10, 60, 30))
         self.minimale_stand.setObjectName("minimale_stand")
-        self.minimale_stand.clicked.connect(self.minimale_stand_action)
+
+
+        self.minimale_stand_groter = QtWidgets.QPushButton(self.centralwidget)
+        self.minimale_stand_groter.setGeometry(QtCore.QRect(330, 10, 20, 30))
+        self.minimale_stand_groter.setObjectName("minimale_stand_groter")
+        self.minimale_stand_groter.clicked.connect(self.maximale_stand_action)
+
+
 
         #button maximale stand
         self.maximale_stand_kleiner = QtWidgets.QPushButton(self.centralwidget)
@@ -35,15 +49,17 @@ class Ui_MainWindow(object):
         self.maximale_stand_kleiner.setObjectName("maximale_stand_kleiner")
         self.maximale_stand_kleiner.clicked.connect(self.maximale_stand_action)
 
-        self.maximale_stand = QtWidgets.QPushButton(self.centralwidget)
-        self.maximale_stand.setGeometry(QtCore.QRect(370, 10, 50, 30))
+        self.maximale_stand = QtWidgets.QLabel(self.centralwidget)
+        self.maximale_stand.setGeometry(QtCore.QRect(390, 10, 60, 30))
         self.maximale_stand.setObjectName("maximale_stand")
-        self.maximale_stand.clicked.connect(self.maximale_stand_action)
 
         self.maximale_stand_groter = QtWidgets.QPushButton(self.centralwidget)
-        self.maximale_stand_groter.setGeometry(QtCore.QRect(420, 10, 20, 30))
-        self.maximale_stand_groter.setObjectName("maximale_stand_kleiner")
+        self.maximale_stand_groter.setGeometry(QtCore.QRect(430, 10, 20, 30))
+        self.maximale_stand_groter.setObjectName("maximale_stand_groter")
         self.maximale_stand_groter.clicked.connect(self.maximale_stand_action)
+
+
+
 
         #button inrollen
         self.inrollen = QtWidgets.QPushButton(self.centralwidget)
@@ -182,10 +198,16 @@ class Ui_MainWindow(object):
         _vertalen = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_vertalen("MainWindow", "MainWindow"))
         self.status_update.setText(_vertalen("MainWindow", "Status updaten"))
-        self.minimale_stand.setText(_vertalen("MainWindow", "Minimale stand"))
+
+        self.minimale_stand_kleiner.setText(_vertalen("MainWindow", "<"))
+        self.minimale_stand.setText(_vertalen("MainWindow", "140"))
+        self.minimale_stand_groter.setText(_vertalen("MainWindow", ">"))
+
         self.maximale_stand_kleiner.setText(_vertalen("MainWindow", "<"))
-        self.maximale_stand.setText(_vertalen("MainWindow", "Maximale stand"))
+        self.maximale_stand.setText(_vertalen("MainWindow", "160"))
         self.maximale_stand_groter.setText(_vertalen("MainWindow", ">"))
+
+
         self.inrollen.setText(_vertalen("MainWindow", "Inrollen"))
         self.uitrollen.setText(_vertalen("MainWindow", "Uitrollen"))
         self.meer_informatie.setText(_vertalen("MainWindow", "Meer informatie"))
