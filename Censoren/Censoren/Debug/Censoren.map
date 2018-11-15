@@ -640,12 +640,12 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
  .debug_frame   0x00000000       0xf0 AVR_TTC_scheduler.o
  .debug_frame   0x000000f0      0x1b4 Censoren.o
 
-.debug_str      0x00000000      0x30d
+.debug_str      0x00000000      0x36a
  *(.debug_str)
  .debug_str     0x00000000      0x14b AVR_TTC_scheduler.o
                                 0x17f (size before relaxing)
- .debug_str     0x0000014b      0x1c2 Censoren.o
-                                0x2bb (size before relaxing)
+ .debug_str     0x0000014b      0x21f Censoren.o
+                                0x2e7 (size before relaxing)
 
 .debug_loc      0x00000000      0x79e
  *(.debug_loc)

@@ -400,10 +400,10 @@ int main() {
 	//scheduler
 	SCH_Init_T1();
 	
-	SCH_Add_Task(calculateAvgTemp,0,4000);
-	SCH_Add_Task(readLDR,0,3000);
-	SCH_Add_Task(SR04Signal,0,3000);
-	SCH_Add_Task(transmitData,0,600);
+	SCH_Add_Task(calculateAvgTemp,0,600);
+	SCH_Add_Task(readLDR,0,600);
+	SCH_Add_Task(SR04Signal,0,600);
+	SCH_Add_Task(transmitData,5,600);
 	SCH_Add_Task(input_handler,0,1);
 	SCH_Add_Task(autoMode,200,1000);
 	
