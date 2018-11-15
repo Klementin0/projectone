@@ -172,7 +172,8 @@ void input_handler(){
 			{
 			minAfstand -= 5;
 			}			
-		}		
+		}
+		//Handmatig in/uitrollen, kan alleen als automatisch uitstaat		
 		if (input = 54)
 		{
 			if (PORTD == 0b00010000)

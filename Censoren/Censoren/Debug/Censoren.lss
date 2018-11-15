@@ -15,11 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   5 .debug_aranges 000000a0  00000000  00000000  00003e20  2**3
                   CONTENTS, READONLY, DEBUGGING
+<<<<<<< HEAD
   6 .debug_info   00000c71  00000000  00000000  00003ec0  2**0
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 000003f5  00000000  00000000  00004b31  2**0
                   CONTENTS, READONLY, DEBUGGING
   8 .debug_line   000005b0  00000000  00000000  00004f26  2**0
+=======
+  6 .debug_info   00000c37  00000000  00000000  00003ea0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000003f5  00000000  00000000  00004ad7  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000005ab  00000000  00000000  00004ecc  2**0
+>>>>>>> 73f25c8903747817c1b9172822aaf91a73935238
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  000002a4  00000000  00000000  000054d8  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -1078,7 +1086,8 @@ void input_handler(){
  5aa:	90 93 03 01 	sts	0x0103, r25
  5ae:	80 93 02 01 	sts	0x0102, r24
 			}			
-		}		
+		}
+		//Handmatig in/uitrollen, kan alleen als automatisch uitstaat		
 		if (input = 54)
  5b2:	86 e3       	ldi	r24, 0x36	; 54
  5b4:	80 93 4f 01 	sts	0x014F, r24
