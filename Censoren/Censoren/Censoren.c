@@ -128,7 +128,7 @@ void input_handler(){
 		input = receive();
 		//hieronder alle python knoppen die werken met deze c code
 		//Automodus veranderen
-		if (input = 49){
+		if (input == 49){
 			if(mode == 0){
 				mode = 1;
 				PORTD |= 0b00100000;

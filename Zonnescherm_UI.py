@@ -123,7 +123,7 @@ class Ui_MainWindow(object):
 
         if self.stand_min > 9:
             self.stand_min = self.stand_min - 5
-            serialPort.Stuur("5")
+            serialPort.Stuur(5)
         else:
             print("Minimale stand van 5 is bereikt, kan niet kleiner worden gemaakt.")
 
