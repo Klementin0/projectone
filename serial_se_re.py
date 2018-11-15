@@ -12,6 +12,8 @@ class SerialPort(threading.Thread):
         self.baud = 19200
         self.isopen = False
         self.timeout = None
+        self.min = 20
+        self.max = 140
         self.lis = []
         self.serialport = serial.Serial()
 
@@ -104,3 +106,33 @@ class SerialPort(threading.Thread):
             return afstand
         else:
             print("Cant return aftand list")
+
+    def Return_min(self):
+        if self.isopen:
+            min = self.min
+            return min
+        else:
+            print("Cant return min value")
+
+    def Update_min(self, update):
+        if self.isopen:
+            newvalue = update
+            min = update
+            self.min = min
+        else:
+            print("Cant return licht list")
+
+    def Return_max(self):
+        if self.isopen:
+            max = self.max
+            return max
+        else:
+            print("Cant return max value")
+
+    def Update_max(self, update):
+        if self.isopen:
+            newvalue = update
+            max = update
+            self.max = max
+        else:
+            print("Can't update max value")

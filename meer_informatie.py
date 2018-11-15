@@ -6,9 +6,9 @@ import plotly.graph_objs as go
 def maak_grafiek(temp,licht,afstand):
 
     xass_temp = []
-    tijd = 60
+    tijd = 1
     for i in range(len(temp)):
-        xass_temp.append(i * tijd)
+        xass_temp.append(i * tijd)g
 
     xass_licht = []
     for i in range(len(licht)):
@@ -44,7 +44,3 @@ def maak_grafiek(temp,licht,afstand):
     fig['layout'].update(height=600, width=600, title='Gegevens zonnescherm:')
 
     ply.plot(fig, filename='grafiek.html')
-
-
-
-
