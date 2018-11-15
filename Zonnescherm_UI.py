@@ -159,7 +159,7 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop verbinden_action wordt ingedrukt
     def verbinden_action(self):
-        serialPort.Open("COM4", 19200)
+        serialPort.Open("COM3", 19200)
         serialPort.Lees()
 
     # actie wanneer de knop verbinding_verbreken_action wordt ingedrukt

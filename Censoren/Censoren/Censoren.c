@@ -175,14 +175,14 @@ void input_handler(){
 		}		
 		if (input = 54)
 		{
-			if (mode = 0)
+			if (PORTD == 0b00010000)
 			{
 				rollIn();
-			}			
+			}		
 		}
 		if (input = 55)
 		{
-			if (mode = 0)
+			if (PORTD == 0b00000100)
 			{
 				rollOut();
 			}			
