@@ -173,7 +173,20 @@ void input_handler(){
 			minAfstand -= 5;
 			}			
 		}		
-		
+		if (input = 54)
+		{
+			if (mode = 0)
+			{
+				rollIn();
+			}			
+		}
+		if (input = 55)
+		{
+			if (mode = 0)
+			{
+				rollOut();
+			}			
+		}
 	}
 
 }
