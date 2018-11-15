@@ -16,25 +16,30 @@ class Ui_MainWindow(object):
 
         #main venster
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(500, 160)
+        MainWindow.resize(500, 180)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
 
 
         self.minimale_stand_kleiner = QtWidgets.QPushButton(self.centralwidget)
-        self.minimale_stand_kleiner.setGeometry(QtCore.QRect(250, 10, 20, 30))
+        self.minimale_stand_kleiner.setGeometry(QtCore.QRect(250, 30, 20, 30))
         self.minimale_stand_kleiner.setObjectName("minimale_stand_kleiner")
         self.minimale_stand_kleiner.clicked.connect(self.minimale_stand_action_min)
 
-        #button minimale stand
+        #weergave minimale stand
+        self.minimale_stand_stand_weergave = QtWidgets.QLabel(self.centralwidget)
+        self.minimale_stand_stand_weergave.setGeometry(QtCore.QRect(265, 0, 80, 40))
+        self.minimale_stand_stand_weergave.setObjectName("minimale_stand_stand_weergave")
+
+        #weergave minimale stand
         self.minimale_stand = QtWidgets.QLabel(self.centralwidget)
-        self.minimale_stand.setGeometry(QtCore.QRect(290, 10, 60, 30))
+        self.minimale_stand.setGeometry(QtCore.QRect(290, 30, 60, 30))
         self.minimale_stand.setObjectName("minimale_stand")
 
 
         self.minimale_stand_groter = QtWidgets.QPushButton(self.centralwidget)
-        self.minimale_stand_groter.setGeometry(QtCore.QRect(330, 10, 20, 30))
+        self.minimale_stand_groter.setGeometry(QtCore.QRect(330, 30, 20, 30))
         self.minimale_stand_groter.setObjectName("minimale_stand_groter")
         self.minimale_stand_groter.clicked.connect(self.minimale_stand_action_plus)
 
@@ -42,65 +47,70 @@ class Ui_MainWindow(object):
 
         #button maximale stand
         self.maximale_stand_kleiner = QtWidgets.QPushButton(self.centralwidget)
-        self.maximale_stand_kleiner.setGeometry(QtCore.QRect(350, 10, 20, 30))
+        self.maximale_stand_kleiner.setGeometry(QtCore.QRect(350, 30, 20, 30))
         self.maximale_stand_kleiner.setObjectName("maximale_stand_kleiner")
         self.maximale_stand_kleiner.clicked.connect(self.maximale_stand_action_min)
 
+        #weergave minimale stand
+        self.maximale_stand_stand_weergave = QtWidgets.QLabel(self.centralwidget)
+        self.maximale_stand_stand_weergave.setGeometry(QtCore.QRect(360, 0, 80, 40))
+        self.maximale_stand_stand_weergave.setObjectName("minimale_stand_stand_weergave")
+
         self.maximale_stand = QtWidgets.QLabel(self.centralwidget)
-        self.maximale_stand.setGeometry(QtCore.QRect(390, 10, 60, 30))
+        self.maximale_stand.setGeometry(QtCore.QRect(390, 30, 60, 30))
         self.maximale_stand.setObjectName("maximale_stand")
 
         self.maximale_stand_groter = QtWidgets.QPushButton(self.centralwidget)
-        self.maximale_stand_groter.setGeometry(QtCore.QRect(430, 10, 20, 30))
+        self.maximale_stand_groter.setGeometry(QtCore.QRect(430, 30, 20, 30))
         self.maximale_stand_groter.setObjectName("maximale_stand_groter")
         self.maximale_stand_groter.clicked.connect(self.maximale_stand_action_plus)
 
 
         #button inrollen
         self.inrollen = QtWidgets.QPushButton(self.centralwidget)
-        self.inrollen.setGeometry(QtCore.QRect(250, 50, 100, 30))
+        self.inrollen.setGeometry(QtCore.QRect(250, 70, 100, 30))
         self.inrollen.setObjectName("inrollen")
         self.inrollen.clicked.connect(self.inrollen_action)
 
         #button uitrollen
         self.uitrollen = QtWidgets.QPushButton(self.centralwidget)
-        self.uitrollen.setGeometry(QtCore.QRect(350, 50, 100, 30))
+        self.uitrollen.setGeometry(QtCore.QRect(350, 70, 100, 30))
         self.uitrollen.setObjectName("uitrollen")
         self.uitrollen.clicked.connect(self.uitrollen_action)
 
         #button meer informatie
         self.meer_informatie = QtWidgets.QPushButton(self.centralwidget)
-        self.meer_informatie.setGeometry(QtCore.QRect(20, 50, 100, 30))
+        self.meer_informatie.setGeometry(QtCore.QRect(20, 70, 100, 30))
         self.meer_informatie.setObjectName("meer_informatie")
         self.meer_informatie.clicked.connect(self.meer_informatie_action)
 
         #button verbinden
         self.verbinden = QtWidgets.QPushButton(self.centralwidget)
-        self.verbinden.setGeometry(QtCore.QRect(350, 100, 100, 30))
+        self.verbinden.setGeometry(QtCore.QRect(350, 120, 100, 30))
         self.verbinden.setObjectName("verzenden")
         self.verbinden.clicked.connect(self.verbinden_action)
 
         #verbinding verbreken
         self.verbinding_verbreken = QtWidgets.QPushButton(self.centralwidget)
-        self.verbinding_verbreken.setGeometry(QtCore.QRect(200, 100, 150, 30))
+        self.verbinding_verbreken.setGeometry(QtCore.QRect(200, 120, 150, 30))
         self.verbinding_verbreken.setObjectName("verbinding verbreken")
         self.verbinding_verbreken.clicked.connect(self.verbinding_verbreken_action)
 
         #Automatisch button
         self.automatisch_manual = QtWidgets.QPushButton(self.centralwidget)
-        self.automatisch_manual.setGeometry(QtCore.QRect(135, 10, 100, 30))
+        self.automatisch_manual.setGeometry(QtCore.QRect(135, 30, 100, 30))
         self.automatisch_manual.setObjectName("automatisch_manual")
         self.automatisch_manual.clicked.connect(self.automatisch_manual_action)
 
         #status updaten
         self.status_update = QtWidgets.QPushButton(self.centralwidget)
-        self.status_update.setGeometry(QtCore.QRect(20, 10, 100, 30))
+        self.status_update.setGeometry(QtCore.QRect(20, 30, 100, 30))
         self.status_update.setObjectName("status update")
         self.status_update.clicked.connect(self.status_update_action)
 
         #status label
         self.status_label = QtWidgets.QLabel(self.centralwidget)
-        self.status_label.setGeometry(QtCore.QRect(30, 100, 100, 30))
+        self.status_label.setGeometry(QtCore.QRect(30, 120, 100, 30))
         self.status_label.setObjectName("status_label")
 
 
@@ -117,9 +127,11 @@ class Ui_MainWindow(object):
 
     #minimale_stand -5 maken.
     def minimale_stand_action_min(self):
+
         if self.stand_min > 9:
             self.stand_min = self.stand_min - 5
             serialPort.Stuur(5)
+
         minvalue = serialPort.Return_min()
         if minvalue > 9:
             minvalue = minvalue - 5
@@ -228,10 +240,12 @@ class Ui_MainWindow(object):
         self.status_update.setText(_vertalen("MainWindow", "Status updaten"))
 
         self.minimale_stand_kleiner.setText(_vertalen("MainWindow", "<"))
+        self.minimale_stand_stand_weergave.setText(_vertalen("MainWindow", "Minimale stand:"))
         self.minimale_stand.setText(_vertalen("MainWindow", "20"))
         self.minimale_stand_groter.setText(_vertalen("MainWindow", ">"))
 
         self.maximale_stand_kleiner.setText(_vertalen("MainWindow", "<"))
+        self.maximale_stand_stand_weergave.setText(_vertalen("MainWindow", "Maximale stand:"))
         self.maximale_stand.setText(_vertalen("MainWindow", "140"))
         self.maximale_stand_groter.setText(_vertalen("MainWindow", ">"))
 
