@@ -74,7 +74,7 @@ uint8_t light = 0;
 uint8_t currentdistance;
 uint8_t mode = 1;
 
-int minAfstand = 6;
+int minAfstand = 5;
 int maxAfstand = 160;
 int minTemp;
 
@@ -124,7 +124,8 @@ int message_incoming(void)
 //roept recieve aan en werkt met wat is opgestuurd
 void input_handler(){
 	input = 0;
-	if(message_incoming()){
+	if(message_incoming())
+	{
 		input = receive();
 		//hieronder alle python knoppen die werken met deze c code
 		//Automodus veranderen
@@ -140,21 +141,21 @@ void input_handler(){
 			}
 			else{mode = 1;}
 		}
-		else if (input == 50)	//afstand instellen
+		if (input == 50)	//afstand instellen
 		{
 			if(maxAfstand < 156)
 			{
 				maxAfstand += 5;
 			}			
 		}
-		else if (input == 51)
+		if (input == 51)
 		{
 			if(maxAfstand > 136){
 				maxAfstand -= 5;
 			}				
 					
 		}
-		else if (input == 52)
+		if (input == 52)
 		{	
 			if (minAfstand < 36)
 			{
@@ -162,7 +163,7 @@ void input_handler(){
 			}
 						
 		}		
-		else if (input == 53)
+		if (input == 53)
 		{
 			if (minAfstand > 9)
 			{
@@ -170,20 +171,29 @@ void input_handler(){
 			}			
 		}
 		//Handmatig in/uitrollen, kan alleen als automatisch uitstaat		
-		else if (input == 54)
+		if (input == 54)
 		{
 			if (mode == 0)
 			{
 				rollIn();
 			}		
 		}
-		else if (input == 55)
+		if (input == 55)
 		{
 			if (mode == 0)
 			{
 				rollOut();
-			}			
+			}
+					
 		}
+		
+		//init voor python
+		if (input == 56)
+		{
+				maxAfstand = 160;
+				minAfstand = 5;
+				
+		}		
 	}
 }
 
@@ -393,8 +403,8 @@ int main() {
 	
 	SCH_Add_Task(calculateAvgTemp,0,4000);
 	SCH_Add_Task(readLDR,0,3000);
-	SCH_Add_Task(SR04Signal,0,50);
-	SCH_Add_Task(transmitData,0,60);
+	SCH_Add_Task(SR04Signal,0,3000);
+	SCH_Add_Task(transmitData,0,600);
 	SCH_Add_Task(input_handler,0,1);
 	SCH_Add_Task(autoMode,200,1000);
 	
