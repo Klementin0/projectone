@@ -1329,21 +1329,21 @@ int main() {
  840:	48 eb       	ldi	r20, 0xB8	; 184
  842:	5b e0       	ldi	r21, 0x0B	; 11
  844:	0e 94 53 00 	call	0xa6	; 0xa6 <SCH_Add_Task>
-	SCH_Add_Task(SR04Signal,0,50);
+	SCH_Add_Task(SR04Signal,0,3000);
  848:	83 eb       	ldi	r24, 0xB3	; 179
  84a:	91 e0       	ldi	r25, 0x01	; 1
  84c:	60 e0       	ldi	r22, 0x00	; 0
  84e:	70 e0       	ldi	r23, 0x00	; 0
- 850:	42 e3       	ldi	r20, 0x32	; 50
- 852:	50 e0       	ldi	r21, 0x00	; 0
+ 850:	48 eb       	ldi	r20, 0xB8	; 184
+ 852:	5b e0       	ldi	r21, 0x0B	; 11
  854:	0e 94 53 00 	call	0xa6	; 0xa6 <SCH_Add_Task>
-	SCH_Add_Task(transmitData,0,60);
+	SCH_Add_Task(transmitData,0,600);
  858:	8e e4       	ldi	r24, 0x4E	; 78
  85a:	92 e0       	ldi	r25, 0x02	; 2
  85c:	60 e0       	ldi	r22, 0x00	; 0
  85e:	70 e0       	ldi	r23, 0x00	; 0
- 860:	4c e3       	ldi	r20, 0x3C	; 60
- 862:	50 e0       	ldi	r21, 0x00	; 0
+ 860:	48 e5       	ldi	r20, 0x58	; 88
+ 862:	52 e0       	ldi	r21, 0x02	; 2
  864:	0e 94 53 00 	call	0xa6	; 0xa6 <SCH_Add_Task>
 	SCH_Add_Task(input_handler,0,1);
  868:	89 e8       	ldi	r24, 0x89	; 137

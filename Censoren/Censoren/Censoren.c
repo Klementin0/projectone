@@ -403,8 +403,8 @@ int main() {
 	
 	SCH_Add_Task(calculateAvgTemp,0,4000);
 	SCH_Add_Task(readLDR,0,3000);
-	SCH_Add_Task(SR04Signal,0,50);
-	SCH_Add_Task(transmitData,0,60);
+	SCH_Add_Task(SR04Signal,0,3000);
+	SCH_Add_Task(transmitData,0,600);
 	SCH_Add_Task(input_handler,0,1);
 	SCH_Add_Task(autoMode,200,1000);
 	
