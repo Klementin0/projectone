@@ -74,7 +74,7 @@ uint8_t light = 0;
 uint8_t currentdistance;
 uint8_t mode = 1;
 
-int minAfstand = 6;
+int minAfstand = 5;
 int maxAfstand = 160;
 int minTemp;
 
@@ -191,7 +191,7 @@ void input_handler(){
 		if (input == 56)
 		{
 				maxAfstand = 160;
-				minAfstand = 6;
+				minAfstand = 5;
 				
 		}		
 	}

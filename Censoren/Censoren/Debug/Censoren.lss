@@ -956,8 +956,8 @@ void input_handler(){
  604:	90 e0       	ldi	r25, 0x00	; 0
  606:	90 93 01 01 	sts	0x0101, r25
  60a:	80 93 00 01 	sts	0x0100, r24
-				minAfstand = 6;
- 60e:	86 e0       	ldi	r24, 0x06	; 6
+				minAfstand = 5;
+ 60e:	85 e0       	ldi	r24, 0x05	; 5
  610:	90 e0       	ldi	r25, 0x00	; 0
  612:	90 93 03 01 	sts	0x0103, r25
  616:	80 93 02 01 	sts	0x0102, r24
