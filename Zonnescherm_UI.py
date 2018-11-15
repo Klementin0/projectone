@@ -5,9 +5,7 @@ import meer_informatie
 
 #Maak nieuw Zonnescherm
 serialPort = serial_se_re.SerialPort()
-
-stand_max= 160
-stand_min = 6
+increment = 5
 
 def InsertText():
     tekst_veld.insert("kek")
@@ -15,7 +13,6 @@ def InsertText():
 class Ui_MainWindow(object):
 
     def setupUi(self, MainWindow):
-
 
         #main venster
         MainWindow.setObjectName("MainWindow")
@@ -120,35 +117,49 @@ class Ui_MainWindow(object):
 
     #minimale_stand -5 maken.
     def minimale_stand_action_min(self):
-
-        if self.stand_min > 9:
-            self.stand_min = self.stand_min - 5
+        minvalue = serialPort.Return_min()
+        if minvalue > 9:
+            minvalue = minvalue - 5
+            serialPort.Update_min(minvalue)
+            minvalue = str(minvalue)
             serialPort.Stuur("5")
+            self.minimale_stand.setText(minvalue)
         else:
-            print("Minimale stand van 5 is bereikt, kan niet kleiner worden gemaakt.")
+            print("Minimale stand is nu 5, deze kan niet kleiner worden gemaakt.")
 
     #minimale_stand +5 maken.
     def minimale_stand_action_plus(self):
-
-        if self.stand_min < 36:
-            self.stand_min = self.stand_min + 5
+        minvalue = serialPort.Return_min()
+        if minvalue < 36:
+            minvalue = minvalue + 5
+            serialPort.Update_min(minvalue)
+            minvalue = str(minvalue)
             serialPort.Stuur("4")
+            self.minimale_stand.setText(minvalue)
         else:
             print("Minimale stand is nu 40, deze kan niet groter worden gemaakt.")
 
     #maximale_stand -5 maken.
     def maximale_stand_action_min(self):
-        if self.stand_max > 139:
-            self.stand_max = self.stand_max + 5
+        maxvalue = serialPort.Return_max()
+        if maxvalue > 139:
+            maxvalue = maxvalue - 5
+            serialPort.Update_max(maxvalue)
+            maxvalue = str(maxvalue)
             serialPort.Stuur("3")
+            self.maximale_stand.setText(maxvalue)
         else:
             print("Maximale stand van 140 is bereikt, kan niet kleiner worden gemaakt.")
 
     #maximale_stand +5 maken.
     def maximale_stand_action_plus(self):
-        if self.stand_max < 156:
-            self.stand_max = self.stand_max + 5
+        maxvalue = serialPort.Return_max()
+        if maxvalue < 156:
+            maxvalue = maxvalue + 5
+            serialPort.Update_max(maxvalue)
+            maxvalue = str(maxvalue)
             serialPort.Stuur("2")
+            self.maximale_stand.setText(maxvalue)
         else:
             print("Maximale stand van 160 is bereikt, kan niet groter worden gemaakt.")
 
@@ -173,8 +184,9 @@ class Ui_MainWindow(object):
 
     # actie wanneer de knop verbinden_action wordt ingedrukt
     def verbinden_action(self):
-        serialPort.Open("COM4", 19200)
+        serialPort.Open("COM13", 19200)
         serialPort.Lees()
+        serialPort.Stuur("8")
 
     # actie wanneer de knop verbinding_verbreken_action wordt ingedrukt
     def verbinding_verbreken_action(self):
@@ -214,11 +226,11 @@ class Ui_MainWindow(object):
         self.status_update.setText(_vertalen("MainWindow", "Status updaten"))
 
         self.minimale_stand_kleiner.setText(_vertalen("MainWindow", "<"))
-        self.minimale_stand.setText(_vertalen("MainWindow", "140"))
+        self.minimale_stand.setText(_vertalen("MainWindow", "20"))
         self.minimale_stand_groter.setText(_vertalen("MainWindow", ">"))
 
         self.maximale_stand_kleiner.setText(_vertalen("MainWindow", "<"))
-        self.maximale_stand.setText(_vertalen("MainWindow", "160"))
+        self.maximale_stand.setText(_vertalen("MainWindow", "140"))
         self.maximale_stand_groter.setText(_vertalen("MainWindow", ">"))
 
 
@@ -240,4 +252,4 @@ MainWindow = QtWidgets.QMainWindow()
 ui = Ui_MainWindow()
 ui.setupUi(MainWindow)
 MainWindow.show()
-sys.exit(app.exec_())
+sys.exit(app.exec_(), serialPort.Sluiten())
